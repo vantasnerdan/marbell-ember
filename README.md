@@ -12,13 +12,13 @@ It started as a console drawn for a film and was rebuilt as a real terminal: nav
 
 ![The cursor leaving a coral thread as it jumps along the line, slowed down](assets/cursor.gif)
 
-**Python at the prompt.** The shell is xonsh, so a line is either a command or Python, and the two mix: `$(...)` captures a command's output into a Python value, `@(...)` drops a Python value into a command, and `` pg`*.glsl` `` is a glob that returns `Path` objects. The status line at the bottom flips between `-- SHELL --` and `-- PYTHON --` as you type.
+**Python at the prompt.** The shell is xonsh, so a line is either a command or Python, and the two mix: `$(...)` captures a command's output into a Python value, `@(...)` drops a Python value into a command, and `` pg`*.glsl` `` is a glob that returns `Path` objects. A readout at the top right of the live prompt flips between `-- SHELL --` and `-- PYTHON --` as you type.
 
 ![Python and shell commands mixed at the prompt: arithmetic, a glob into a variable, command capture, a bar chart](assets/python.gif)
 
-`ember.py` adds charts that draw on the character grid: `bars`, `spark`, `gauge`, `panel`, `table`. The status line also carries a CPU sparkline and a memory meter.
+`ember.py` adds charts that draw on the character grid: `bars`, `spark`, `gauge`, `panel`, `table`. The same readout carries a CPU sparkline and a memory meter, and clears itself once a line is run.
 
-![Prompt, bar chart, sparkline and status line](assets/prompt.png)
+![Prompt, bar chart, sparkline and the live readout](assets/prompt.png)
 
 **Workspaces.** herdr is themed to match: coral active tab and focus border, panes open xonsh.
 
@@ -82,7 +82,7 @@ Ghostty starts xonsh directly, so nothing from `~/.bashrc` is inherited. Put you
 
 ```
 ghostty/   config.ghostty, ember.css (hover-only title bar), themes/Marbell Ember, shaders/
-ember/     ember.py (charts + status line), plate.png, make_plate.py, logo.txt, delta.gitconfig
+ember/     ember.py (charts + live readout), plate.png, make_plate.py, logo.txt, delta.gitconfig
 xonsh/     rc.xsh, local.xsh.example
 starship.toml
 herdr/     config.toml
