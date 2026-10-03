@@ -1,0 +1,4 @@
+# Marbell Ember — bat follows the terminal palette
+--theme="ansi"
+--style="numbers,changes,header-filename"
+--italic-text=always

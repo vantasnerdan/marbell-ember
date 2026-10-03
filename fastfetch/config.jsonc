@@ -1,0 +1,33 @@
+// Marbell Ember — boot card. No user, hostname or IP: safe to open on a screen share.
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json-schema.json",
+  "logo": {
+    "type": "file",
+    "source": "~/.config/ember/logo.txt",
+    "color": { "1": "38;2;244;120;83", "2": "38;2;30;42;68", "3": "38;2;244;247;251" },
+    "padding": { "top": 1, "left": 3, "right": 5 }
+  },
+  "display": {
+    "separator": "  ",
+    "color": { "keys": "38;2;91;107;140", "output": "38;2;201;211;227" },
+    "key": { "width": 9 },
+    "constants": ["\u001b[38;2;30;42;68m", "\u001b[38;2;244;120;83m", "\u001b[38;2;91;107;140m", "\u001b[0m"]
+  },
+  "modules": [
+    "break",
+    { "type": "custom", "format": "{$2}{#1}MARBELL EMBER{#}  {$3}workstation online{$4}" },
+    { "type": "custom", "format": "{$1}──────────────────────────────────────────────────{$4}" },
+    { "type": "os", "key": "os", "format": "{pretty-name}" },
+    { "type": "kernel", "key": "kernel", "format": "{release}" },
+    { "type": "cpu", "key": "cpu", "format": "{name}  {$3}{cores-logical} threads{$4}" },
+    { "type": "gpu", "key": "gpu", "format": "{name}" },
+    { "type": "memory", "key": "memory", "format": "{used} / {total}" },
+    { "type": "display", "key": "glass", "compactType": "original" },
+    { "type": "terminal", "key": "term", "format": "{pretty-name} {version}" },
+    { "type": "shell", "key": "shell", "format": "{pretty-name} {version}" },
+    { "type": "uptime", "key": "up" },
+    { "type": "custom", "format": "{$1}──────────────────────────────────────────────────{$4}" },
+    { "type": "colors", "symbol": "square", "paddingLeft": 0 },
+    "break"
+  ]
+}

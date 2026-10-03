@@ -1,0 +1,60 @@
+# Marbell Ember — Ghostty
+# Installed by marbell-ember/install.sh (__HOME__ is filled in at install time).
+# Reload: ctrl+shift+,   ·   option docs: ghostty +show-config --default --docs
+
+theme = Marbell Ember
+
+# --- type: Space Mono, the film's face. Nerd glyphs come from Ghostty's built-in fallback.
+font-family = Space Mono
+font-size = 13
+adjust-cell-height = 8%
+adjust-cursor-thickness = 2
+bold-color = #F4F7FB
+faint-opacity = 0.6
+minimum-contrast = 1.1
+
+# --- glass: a baked, blurred plate behind the grid (GNOME has no compositor blur),
+#     Opaque on purpose: a see-through terminal leaks whatever is behind it into a screen share.
+background-image = ~/.config/ember/plate.png
+background-image-fit = cover
+background-image-position = center
+background-image-opacity = 1
+background-opacity = 1
+
+# --- shaders: coral phosphor glow + focus sweep, then the cursor thread
+custom-shader = shaders/ember-glass.glsl
+custom-shader = shaders/ember-cursor.glsl
+custom-shader-animation = true
+
+# --- window: no chrome at all. Move with Super+drag, resize with Super+middle-drag.
+window-decoration = none
+window-padding-x = 26
+window-padding-y = 20
+window-padding-balance = true
+window-width = 150
+window-height = 40
+window-theme = dark
+resize-overlay = never
+scrollbar = never
+gtk-single-instance = false
+confirm-close-surface = false
+
+# --- cursor
+cursor-style = block
+cursor-style-blink = true
+mouse-hide-while-typing = true
+
+# --- splits (native ones, outside herdr)
+unfocused-split-opacity = 0.55
+unfocused-split-fill = #070B16
+split-divider-color = #1E2A44
+
+# --- shell: xonsh. Ghostty has no xonsh shell integration; the rc file handles title and cwd.
+command = __HOME__/.local/bin/xonsh
+shell-integration = none
+bell-features = no-system,no-audio,attention,title,border
+
+# --- keys
+keybind = ctrl+shift+d=toggle_window_decorations
+keybind = ctrl+shift+o=toggle_background_opacity
+keybind = ctrl+shift+enter=toggle_fullscreen

@@ -1,0 +1,48 @@
+# Marbell Ember — herdr
+onboarding = false
+
+[theme]
+# "terminal" follows the host palette (Ghostty's Marbell Ember); the tokens below pin the chrome.
+name = "terminal"
+
+[theme.custom]
+panel_bg = "reset"
+sidebar_bg = "#090E1B"
+surface_dim = "#0A0F1D"
+surface0 = "#111829"
+surface1 = "#1E2A44"
+active_row_bg = "#1E2A44"
+selection_bg = "#26365A"
+overlay0 = "#5B6B8C"
+overlay1 = "#7C8BAA"
+subtext0 = "#9AA8C2"
+text = "#C9D3E3"
+accent = "#F47853"
+peach = "#FF9A7B"
+mauve = "#F47853"
+red = "#E5484D"
+yellow = "#F2B866"
+green = "#4FD1C5"
+teal = "#4FD1C5"
+blue = "#6E9BF5"
+
+[terminal]
+# Interactive panes get xonsh; $SHELL stays bash so agents that shell out are unaffected.
+default_shell = "__HOME__/.local/bin/xonsh"
+
+[ui]
+accent = "#F47853"
+status_indicators = "symbols"
+pane_gaps = true
+pane_scrollbars = false
+show_agent_labels_on_pane_borders = true
+tab_bar_right = [{ type = "text", text = "marbell" }, { type = "datetime", format = "%H:%M" }]
+tab_bar_right_separator = " · "
+window_title = "{workspace} · {tab}"
+
+[[keys.command]]
+key = "prefix+alt+b"
+type = "popup"
+command = "btop"
+width = "85%"
+height = "85%"

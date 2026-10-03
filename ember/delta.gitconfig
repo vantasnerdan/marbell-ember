@@ -1,0 +1,22 @@
+# Marbell Ember — git diffs through delta. Included from ~/.gitconfig.
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	syntax-theme = ansi
+	line-numbers = true
+	file-style = bold "#F4F7FB"
+	file-decoration-style = "#1E2A44" ul
+	hunk-header-style = "#5B6B8C"
+	hunk-header-decoration-style = "#1E2A44" box
+	line-numbers-minus-style = "#E5484D"
+	line-numbers-plus-style = "#4FD1C5"
+	line-numbers-zero-style = "#2B3A5C"
+	line-numbers-left-style = "#1E2A44"
+	line-numbers-right-style = "#1E2A44"
+	minus-style = syntax "#2A1218"
+	minus-emph-style = syntax "#5A1F26"
+	plus-style = syntax "#0E2A2C"
+	plus-emph-style = syntax "#17494A"

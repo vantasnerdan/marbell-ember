@@ -1,0 +1,16 @@
+# ~/.config/xonsh/local.xsh — your machine's environment, sourced first by rc.xsh.
+# Ghostty starts xonsh directly, so nothing from ~/.bashrc is inherited: port it here.
+from pathlib import Path
+
+_home = Path.home()
+for _p in reversed([
+    _home / ".cargo/bin",
+    _home / "anaconda3/bin",
+    _home / "anaconda3/condabin",
+    # Path("/usr/local/cuda/bin"),
+]):
+    if _p.is_dir() and str(_p) not in $PATH:
+        $PATH.insert(0, str(_p))
+
+# $EMBER_CALLSIGN = "MARBELL"   # the word in the prompt and status-line block
+# $EDITOR = "nvim"

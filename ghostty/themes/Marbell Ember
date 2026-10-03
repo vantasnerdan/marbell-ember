@@ -1,0 +1,26 @@
+# Marbell Ember — the console from the HASI film, as a real terminal theme.
+# glass #070B16 · line #1E2A44 · dim #5B6B8C · text #C9D3E3 · bright #F4F7FB
+# coral #F47853 (prompt, cursor, focus) · teal #4FD1C5 · amber #F2B866 · red #E5484D
+# Coral sits in the magenta slot, so every tool's "accent" colour lands on it.
+background = #070B16
+foreground = #C9D3E3
+cursor-color = #F47853
+cursor-text = #070B16
+selection-background = #26365A
+selection-foreground = #F4F7FB
+palette = 0=#111829
+palette = 1=#E5484D
+palette = 2=#4FD1C5
+palette = 3=#F2B866
+palette = 4=#6E9BF5
+palette = 5=#F47853
+palette = 6=#5CC8F0
+palette = 7=#C9D3E3
+palette = 8=#5B6B8C
+palette = 9=#FF6B6F
+palette = 10=#7CE8DD
+palette = 11=#FFD08A
+palette = 12=#9DB8FF
+palette = 13=#FF9A7B
+palette = 14=#8FDDFA
+palette = 15=#F4F7FB

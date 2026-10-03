@@ -1,0 +1,124 @@
+# Marbell Ember — Starship. No user@host on purpose: nothing to redact on a screen share.
+# The first block reads $EMBER_CALLSIGN (default MARBELL).
+"$schema" = 'https://starship.rs/config-schema.json'
+add_newline = true
+palette = "ember"
+command_timeout = 800
+
+format = """
+[ ${env_var.EMBER_CALLSIGN} ](bold fg:ink bg:coral)[](fg:coral bg:panel)\
+$directory[](fg:panel) \
+$git_branch$git_commit$git_state$git_status\
+$fill \
+$python$conda$nodejs$rust$golang$docker_context$jobs$cmd_duration$status$time
+$character"""
+
+continuation_prompt = "[│ ](fg:panel)"
+
+[palettes.ember]
+ink = "#070B16"
+panel = "#1E2A44"
+dim = "#5B6B8C"
+text = "#C9D3E3"
+bright = "#F4F7FB"
+coral = "#F47853"
+teal = "#4FD1C5"
+amber = "#F2B866"
+red = "#E5484D"
+
+[env_var.EMBER_CALLSIGN]
+default = "MARBELL"
+format = "$env_value"
+
+[directory]
+format = "[ $path ]($style)[$read_only]($read_only_style)"
+style = "bold fg:bright bg:panel"
+read_only = " "
+read_only_style = "fg:amber bg:panel"
+truncation_length = 3
+truncate_to_repo = true
+truncation_symbol = "…/"
+
+[git_branch]
+format = "[ $branch]($style) "
+style = "fg:teal"
+
+[git_commit]
+format = "[$hash$tag]($style) "
+style = "fg:dim"
+
+[git_state]
+format = "[$state $progress_current/$progress_total]($style) "
+style = "fg:amber"
+
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+style = "fg:amber"
+modified = "~$count "
+staged = "+$count "
+untracked = "?$count "
+deleted = "-$count "
+renamed = "»$count "
+stashed = ""
+conflicted = "!$count "
+ahead = "⇡$count "
+behind = "⇣$count "
+diverged = "⇡$ahead_count⇣$behind_count "
+
+[fill]
+symbol = "─"
+style = "fg:panel"
+
+[python]
+format = "[py $version( $virtualenv)]($style) "
+version_format = "$major.$minor"
+style = "fg:dim"
+
+[conda]
+format = "[$environment]($style) "
+style = "fg:dim"
+ignore_base = true
+
+[nodejs]
+format = "[node $version]($style) "
+version_format = "$major"
+style = "fg:dim"
+
+[rust]
+format = "[rs $version]($style) "
+version_format = "$major.$minor"
+style = "fg:dim"
+
+[golang]
+format = "[go $version]($style) "
+version_format = "$major.$minor"
+style = "fg:dim"
+
+[docker_context]
+format = "[$context]($style) "
+style = "fg:dim"
+
+[jobs]
+format = "[$symbol$number]($style) "
+symbol = "⠶ "
+style = "fg:amber"
+
+[cmd_duration]
+min_time = 1500
+format = "[$duration]($style) "
+style = "fg:amber"
+
+[status]
+disabled = false
+format = "[✗ $status]($style) "
+style = "bold fg:red"
+
+[time]
+disabled = false
+format = "[$time]($style)"
+time_format = "%H:%M"
+style = "fg:dim"
+
+[character]
+success_symbol = "[❯](bold fg:coral)"
+error_symbol = "[❯](bold fg:red)"
