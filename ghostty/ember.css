@@ -1,0 +1,92 @@
+/* Marbell Ember — window chrome that only exists under the mouse.
+   The title bar is a slim strip in the terminal's own colour. Its buttons and title
+   are transparent until the pointer is over the strip. Drag it to move the window,
+   double-click to maximise, drag the window edges to resize. */
+
+headerbar {
+  min-height: 22px;
+  padding: 0 6px;
+  background: #070B16;
+  color: #5B6B8C;
+  border: none;
+  box-shadow: none;
+}
+
+headerbar windowcontrols,
+headerbar windowtitle,
+headerbar button,
+headerbar separator,
+headerbar menubutton {
+  opacity: 0;
+  transition: opacity 160ms ease-out;
+}
+
+headerbar:hover windowcontrols,
+headerbar:hover windowtitle,
+headerbar:hover button,
+headerbar:hover menubutton {
+  opacity: 1;
+}
+
+headerbar windowtitle .title {
+  font-family: "Space Mono";
+  font-size: 11px;
+  font-weight: normal;
+  color: #5B6B8C;
+}
+
+headerbar button,
+headerbar menubutton > button {
+  min-height: 16px;
+  min-width: 16px;
+  padding: 1px 6px;
+  margin: 1px 1px;
+  border-radius: 4px;
+  background: none;
+  color: #5B6B8C;
+  box-shadow: none;
+}
+
+headerbar button:hover,
+headerbar menubutton > button:hover {
+  background: #1E2A44;
+  color: #F4F7FB;
+}
+
+headerbar windowcontrols button image {
+  background: none;
+  box-shadow: none;
+}
+
+headerbar windowcontrols button.close:hover {
+  background: #F47853;
+  color: #070B16;
+}
+
+/* tabs, when there is more than one */
+tabbar, tabbar tabbox {
+  background: #070B16;
+  color: #5B6B8C;
+  box-shadow: none;
+  border: none;
+}
+
+tabbar tab:selected {
+  background: #1E2A44;
+  color: #F4F7FB;
+}
+
+/* no seam between the strip and the terminal */
+toolbarview > .top-bar,
+toolbarview > .top-bar > *,
+toolbarview.undershoot-top > .content,
+tabbar > revealer > box {
+  background: #070B16;
+  border: none;
+  box-shadow: none;
+}
+
+toolbarview > .content undershoot.top {
+  box-shadow: none;
+  background: none;
+}

@@ -15,6 +15,7 @@ echo "configs:"
 put "$here/ghostty/config.ghostty"        "$cfg/ghostty/config.ghostty"
 put "$here/ghostty/themes/Marbell Ember"  "$cfg/ghostty/themes/Marbell Ember"
 for f in "$here"/ghostty/shaders/*.glsl; do put "$f" "$cfg/ghostty/shaders/$(basename "$f")"; done
+put "$here/ghostty/ember.css"             "$cfg/ghostty/ember.css"
 for f in ember.py make_plate.py logo.txt delta.gitconfig plate.png; do put "$here/ember/$f" "$cfg/ember/$f"; done
 put "$here/xonsh/rc.xsh"                  "$cfg/xonsh/rc.xsh"
 [ -f "$cfg/xonsh/local.xsh" ] || put "$here/xonsh/local.xsh.example" "$cfg/xonsh/local.xsh"

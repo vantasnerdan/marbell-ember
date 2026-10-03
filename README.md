@@ -73,7 +73,7 @@ Ghostty starts xonsh directly, so nothing from `~/.bashrc` is inherited. Put you
 ## Layout
 
 ```
-ghostty/   config.ghostty, themes/Marbell Ember, shaders/
+ghostty/   config.ghostty, ember.css (hover-only title bar), themes/Marbell Ember, shaders/
 ember/     ember.py (charts + status line), plate.png, make_plate.py, logo.txt, delta.gitconfig
 xonsh/     rc.xsh, local.xsh.example
 starship.toml
@@ -87,7 +87,7 @@ bat/ btop/ tool themes
 - The word in the prompt block: `$EMBER_CALLSIGN` (default `MARBELL`).
 - Shader strength: the constants at the top of each `.glsl` file.
 - A different background plate: `python3 ember/make_plate.py plate.png <seed>` (needs numpy and Pillow).
-- The window has no title bar. Move it with Super+drag; `ctrl+shift+d` toggles the decorations.
+- The title bar is an invisible strip at the top (`ghostty/ember.css`). Hover it and the window buttons fade in; drag it to move, double-click to maximise, drag the edges to resize. `ctrl+shift+d` removes it entirely.
 - `ctrl+r` searches history and `ctrl+t` picks files, both through fzf.
 
 ## Notes

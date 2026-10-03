@@ -26,14 +26,18 @@ custom-shader = shaders/ember-glass.glsl
 custom-shader = shaders/ember-cursor.glsl
 custom-shader-animation = true
 
-# --- window: no chrome at all. Move with Super+drag, resize with Super+middle-drag.
-window-decoration = none
+# --- window: the title bar is an invisible strip until the mouse is over it (ember.css).
+#     Drag the strip to move, double-click it to maximise, drag the edges to resize.
+window-decoration = client
+window-theme = dark
+gtk-titlebar = true
+gtk-toolbar-style = flat
+gtk-custom-css = ember.css
 window-padding-x = 26
 window-padding-y = 20
 window-padding-balance = true
 window-width = 150
 window-height = 40
-window-theme = dark
 resize-overlay = never
 scrollbar = never
 gtk-single-instance = false
