@@ -14,6 +14,12 @@ _local = _home / ".config/xonsh/local.xsh"
 if _local.exists():
     source @(str(_local))
 
+def _have(cmd):
+    """True if `cmd` is on PATH. Every optional tool below is guarded with this, so the
+    same rc works on a machine that has only xonsh."""
+    import shutil
+    return shutil.which(cmd, path=os.pathsep.join($PATH)) is not None
+
 # --- shell behaviour -----------------------------------------------------------
 $XONSH_HISTORY_BACKEND = "sqlite"
 $HISTCONTROL = {"ignoredups", "ignorespace"}
@@ -94,23 +100,61 @@ $FZF_DEFAULT_OPTS = " ".join([
     "--color=list-border:#1E2A44,input-border:#F47853,preview-border:#1E2A44,header-border:#1E2A44",
 ])
 $BAT_THEME = "ansi"
-$MANPAGER = "sh -c 'col -bx | bat -l man -p'"
-$MANROFFOPT = "-c"
+if _have("bat"):
+    $MANPAGER = "sh -c 'col -bx | bat -l man -p'"
+    $MANROFFOPT = "-c"
 
 # --- aliases ------------------------------------------------------------------------
-aliases["ls"] = "eza --icons=auto --group-directories-first"
-aliases["ll"] = "eza --icons=auto --group-directories-first -l --git --time-style=relative --no-user"
-aliases["la"] = "eza --icons=auto --group-directories-first -la --git --time-style=relative"
-aliases["lt"] = "eza --icons=auto --group-directories-first --tree --level=2"
-aliases["cat"] = "bat --paging=never"
-aliases["top"] = "btop"
-aliases["boot"] = "fastfetch"
+if _have("eza"):
+    _EZA = ["eza", "--icons=auto", "--group-directories-first"]
+
+    def _ls(args):
+        """eza for everyday use; real ls when the flags are ones eza reads differently
+        (ls -ltr, -S, -h ...), so muscle memory and pasted commands keep working."""
+        import re
+        if any(re.match(r"^-[A-Za-z]*[tSXcuvChHkqQNbpwxm]", a) for a in args if not a.startswith("--")):
+            return __xonsh__.subproc_uncaptured(["/bin/ls", "--color=auto", *args])
+        return __xonsh__.subproc_uncaptured([*_EZA, *args])
+
+    aliases["ls"] = _ls
+    aliases["ll"] = _EZA + ["-l", "--git", "--time-style=relative", "--no-user"]
+    aliases["la"] = _EZA + ["-la", "--git", "--time-style=relative"]
+    aliases["lt"] = _EZA + ["--tree", "--level=2"]
+else:
+    aliases["ls"] = "ls --color=auto"
+    aliases["ll"] = "ls --color=auto -lh"
+    aliases["la"] = "ls --color=auto -lAh"
+if _have("bat"):
+    aliases["cat"] = "bat --paging=never"
+if _have("btop"):
+    aliases["top"] = "btop"
+if _have("fastfetch"):
+    aliases["boot"] = "fastfetch"
 aliases["grep"] = "grep --color=auto"
+
+# bash habits that would otherwise be "command not found"
+def _export(args):
+    """export NAME=value [NAME2=value2 ...]"""
+    for a in args:
+        if "=" in a:
+            k, v = a.split("=", 1)
+            ${...}[k] = v
+    return 0
+
+def _unset(args):
+    for k in args:
+        ${...}.pop(k, None)
+    return 0
+
+aliases["export"] = _export
+aliases["unset"] = _unset
 
 # --- ember: Python graphics at the prompt (spark, bars, gauge, panel, table) -------------
 sys.path.insert(0, str(_home / ".config/ember"))
 import ember
 from ember import spark, bars, gauge, panel, table
+
+_EMBER_LIVE = True
 
 def _ember_status():
     try:
@@ -123,38 +167,67 @@ def _ember_status():
     def _is_cmd(word):
         return word in aliases or bool(__xonsh__.commands_cache.locate_binary(word))
     try:
-        return ember.status(text, _is_cmd)
+        return ember.status(text, _is_cmd, flag=_EMBER_LIVE)
     except Exception:
         return ""
 
 # --- prompt, jumps, history search -----------------------------------------------------
-execx($(starship init xonsh))
-# live readout (cpu, mem, SHELL / PYTHON flag) at the right end of the input line;
-# prompt_toolkit hides it when the typed text reaches it and once the line is run
 $RIGHT_PROMPT = _ember_status
+if _have("starship"):
+    execx($(starship init xonsh))
+    # live readout (cpu, mem, SHELL / PYTHON flag) at the top right of the prompt;
+    # prompt_toolkit hides it when the typed text reaches it and once the line is run
+    $RIGHT_PROMPT = _ember_status
 
-# The readout has to repaint on every key (for the SHELL / PYTHON flag), which makes
-# xonsh re-evaluate $PROMPT on every key too. Starship is a subprocess, so run it once
-# per prompt and hand back the cached string after that.
-_starship_prompt = $PROMPT
-_prompt_cache = {}
+    # The readout has to repaint on every key (for the SHELL / PYTHON flag), which makes
+    # xonsh re-evaluate $PROMPT on every key too. Starship is a subprocess, so run it once
+    # per prompt and hand back the cached string after that.
+    # Starship is called with plain subprocess rather than xonsh's $(...), so it never
+    # registers as the "current job" and leaks into the terminal title.
+    _STARSHIP = __import__("shutil").which("starship", path=os.pathsep.join($PATH))
 
-@events.on_pre_prompt
-def _ember_new_prompt(**kw):
-    _prompt_cache.clear()
+    def _starship_prompt():
+        import subprocess
+        hist = __xonsh__.history
+        status = hist.rtns[-1] if len(hist.rtns) else 0
+        ts = hist.tss[-1] if len(hist.tss) else None
+        duration = round((ts[1] - ts[0]) * 1000) if ts else 0
+        jobs = sum(1 for j in __xonsh__.all_jobs.values() if j["obj"] and j["obj"].poll() is None)
+        try:
+            width = os.get_terminal_size().columns
+        except OSError:
+            width = 100
+        r = subprocess.run([_STARSHIP, "prompt", f"--status={status}", f"--jobs={jobs}", f"--cmd-duration={duration}",
+                            f"--terminal-width={width}"], capture_output=True, text=True, env=${...}.detype())
+        return r.stdout
 
-def _ember_prompt():
-    if "p" not in _prompt_cache:
-        _prompt_cache["p"] = _starship_prompt()
-    return _prompt_cache["p"]
+    _prompt_cache = {}
 
-$PROMPT = _ember_prompt
-$UPDATE_PROMPT_ON_KEYPRESS = True
-execx($(zoxide init xonsh), "exec", __xonsh__.ctx, filename="zoxide")
+    @events.on_pre_prompt
+    def _ember_new_prompt(**kw):
+        _prompt_cache.clear()
+
+    def _ember_prompt():
+        if "p" not in _prompt_cache:
+            _prompt_cache["p"] = _starship_prompt()
+        return _prompt_cache["p"]
+
+    $PROMPT = _ember_prompt
+    $UPDATE_PROMPT_ON_KEYPRESS = True
+else:
+    # no Starship on this machine: a native prompt in the same colours. It is evaluated
+    # once per prompt, so the readout shows cpu and mem but no live SHELL / PYTHON flag.
+    _EMBER_LIVE = False
+    $PROMPT = ("\n{BACKGROUND_#F47853}{BOLD_#070B16} " + $EMBER_CALLSIGN + " {BACKGROUND_#1E2A44}{BOLD_#F4F7FB} {short_cwd} "
+               "{RESET}{#4FD1C5}{curr_branch: {}}{RESET}\n{BOLD_#F47853}❯{RESET} ")
+if _have("zoxide"):
+    execx($(zoxide init xonsh), "exec", __xonsh__.ctx, filename="zoxide")
 
 @events.on_ptk_create
 def _ember_keys(bindings, **kw):
     import subprocess
+    if not _have("fzf"):
+        return  # keep xonsh's built-in ctrl-r search
 
     def _fzf(event, lines, *opts):
         try:
@@ -180,8 +253,10 @@ def _ember_keys(bindings, **kw):
 
     @bindings.add("c-t")
     def _files(event):
-        out = subprocess.run(["rg", "--files", "--hidden", "-g", "!.git"], text=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout
-        pick = _fzf(event, out.splitlines(), "--input-label= files ", "--preview", "bat --color=always --style=numbers --line-range=:200 {}")
+        lister = ["rg", "--files", "--hidden", "-g", "!.git"] if _have("rg") else ["find", ".", "-type", "f", "-not", "-path", "./.git/*"]
+        out = subprocess.run(lister, text=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout
+        preview = ["--preview", "bat --color=always --style=numbers --line-range=:200 {}"] if _have("bat") else []
+        pick = _fzf(event, out.splitlines(), "--input-label= files ", *preview)
         if pick:
             event.current_buffer.insert_text(pick)
 
@@ -205,4 +280,5 @@ xontrib load -s term_integration
 # --- first shell in a window: the boot card (not in herdr panes, not in nested shells) -----
 if $XONSH_INTERACTIVE and not ${...}.get("HERDR_PANE_ID") and not ${...}.get("EMBER_BOOTED") and sys.stdout.isatty() and os.get_terminal_size().columns >= 100:
     $EMBER_BOOTED = "1"
-    fastfetch
+    if _have("fastfetch"):
+        fastfetch

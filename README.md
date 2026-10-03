@@ -78,6 +78,26 @@ The installer copies configs into `~/.config`, keeps a numbered backup of every 
 
 Ghostty starts xonsh directly, so nothing from `~/.bashrc` is inherited. Put your PATH entries and exports in `~/.config/xonsh/local.xsh`; the installer creates it from `xonsh/local.xsh.example`.
 
+## Coming from bash
+
+xonsh is not bash. Agents are unaffected: `$SHELL` stays `/bin/bash`, so Claude Code, Codex and anything else that shells out keeps using bash, and herdr still detects agents started from an xonsh pane. What changes is what a person types or pastes at the prompt:
+
+| bash | here |
+|---|---|
+| `export FOO=bar`, `unset FOO` | work (shimmed in `rc.xsh`) |
+| `FOO=bar cmd` | `$FOO="bar" cmd` |
+| `${HOME}` | `$HOME` |
+| `echo $?` | the prompt shows `✗ <code>`; in code, `__xonsh__.history.rtns[-1]` |
+| `` `cmd` `` | `$(cmd)` |
+| `for i in 1 2 3; do ...; done` | a Python `for` loop, or `bash -c '...'` |
+| `cat <<EOF` heredocs | `bash -c '...'`, or a Python string |
+| `source script.sh`, `source venv/bin/activate` | `source-bash script.sh`; for virtualenvs, `xontrib load vox` then `vox activate` |
+| pasting several lines | runs after a second Enter |
+
+`&&`, `||`, `;`, pipes, redirects, `2>&1`, `&`, Ctrl-C, Ctrl-Z / `fg`, `$(...)`, `~`, tab completion and full-screen programs behave as in bash. `ls` is eza, but falls back to real `ls` for flag clusters eza reads differently, such as `ls -ltr`.
+
+Every optional tool is guarded. On a machine with only xonsh installed the same `rc.xsh` still loads: a native prompt in the Ember colours replaces Starship, `ls` is plain `ls`, and Ctrl-R is xonsh's built-in search.
+
 ## Layout
 
 ```
@@ -97,6 +117,7 @@ bat/ btop/ tool themes
 - A different background plate: `python3 ember/make_plate.py plate.png <seed>` (needs numpy and Pillow).
 - The title bar is an invisible strip at the top (`ghostty/ember.css`). Hover it and the window buttons fade in; drag it to move, double-click to maximise, drag the edges to resize. `ctrl+shift+d` removes it entirely.
 - `ctrl+r` searches history and `ctrl+t` picks files, both through fzf.
+- xonsh keeps its own history (SQLite under `~/.local/share/xonsh/`); it does not read `~/.bash_history`.
 
 ## Notes
 

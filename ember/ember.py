@@ -149,7 +149,7 @@ def _sample():
         _cache["thread"].start()
 
 
-def status(buffer_text="", is_command=None):
+def status(buffer_text="", is_command=None, flag=True):
     """Format string for xonsh's $RIGHT_PROMPT: cpu sparkline, mem meter, mode flag."""
     _sample()
     load = _cache["load"] or [0.0]
@@ -164,5 +164,6 @@ def status(buffer_text="", is_command=None):
         mode, mc = "PYTHON", AMBER
     return (
         f"{{{DIM}}}cpu {{{CORAL}}}{cpu} {{{DIM}}} mem {{{TEAL}}}{'━' * on}{{{PANEL}}}{'━' * (8 - on)}"
-        f"  {{{mc}}}-- {mode} --{{RESET}}"
+        + (f"  {{{mc}}}-- {mode} --" if flag else "")
+        + "{RESET}"
     )
