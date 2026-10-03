@@ -120,8 +120,17 @@ def _ember_toolbar():
         text = ""
     def _is_cmd(word):
         return word in aliases or bool(__xonsh__.commands_cache.locate_binary(word))
+    # The prompt carries its own callsign block. When it sits within a few rows of the
+    # status line, the status line goes compact so the two blocks never stack.
+    compact = True
     try:
-        return ember.toolbar(text, _is_cmd)
+        app = __xonsh__.shell.shell.prompter.app
+        rows = app.output.get_size().rows
+        compact = app.renderer.rows_above_layout + 2 + text.count("\n") >= rows - 6
+    except Exception:
+        pass
+    try:
+        return ember.toolbar(text, _is_cmd, compact)
     except Exception:
         return ""
 

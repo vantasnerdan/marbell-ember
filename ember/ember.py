@@ -147,8 +147,11 @@ def _sample():
         _cache["thread"].start()
 
 
-def toolbar(buffer_text="", is_command=None):
-    """Format string for $BOTTOM_TOOLBAR: callsign block, cpu sparkline, mem meter, mode flag."""
+def toolbar(buffer_text="", is_command=None, compact=False):
+    """Format string for $BOTTOM_TOOLBAR: callsign block, cpu sparkline, mem meter, mode flag.
+
+    compact=True drops the callsign blocks, for when the prompt (which has its own
+    callsign block) sits right above the status line."""
     _sample()
     call = os.environ.get("EMBER_CALLSIGN", "MARBELL")
     load = _cache["load"] or [0.0]
@@ -162,9 +165,13 @@ def toolbar(buffer_text="", is_command=None):
     else:
         mode, mc = "PYTHON", AMBER
     bar = "#0A0F1D"
-    return (
-        f"{{BACKGROUND_{CORAL}}}{{BOLD_{INK}}} {call} {{BACKGROUND_{PANEL}}}{{{CORAL}}}\ue0b0"
-        f"{{BOLD_{BRIGHT}}} xonsh {{BACKGROUND_{bar}}}{{{PANEL}}}\ue0b0"
+    meters = (
         f" {{{DIM}}}cpu {{{CORAL}}}{cpu} {{{DIM}}} mem {{{TEAL}}}{'━' * on}{{{PANEL}}}{'━' * (8 - on)}"
         f"  {{{mc}}}-- {mode} --"
+    )
+    if compact:
+        return f"{{BACKGROUND_{bar}}}{{{DIM}}} xonsh {{{PANEL}}}│" + meters
+    return (
+        f"{{BACKGROUND_{CORAL}}}{{BOLD_{INK}}} {call} {{BACKGROUND_{PANEL}}}{{{CORAL}}}\ue0b0"
+        f"{{BOLD_{BRIGHT}}} xonsh {{BACKGROUND_{bar}}}{{{PANEL}}}\ue0b0" + meters
     )
