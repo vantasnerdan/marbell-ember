@@ -12,13 +12,21 @@ It started as a console drawn for a film and was rebuilt as a real terminal: nav
 
 ![The cursor leaving a coral thread as it jumps along the line, slowed down](assets/cursor.gif)
 
-**Python at the prompt.** The shell is xonsh, so a line is either a command or Python. `ember.py` adds charts that draw on the character grid: `bars`, `spark`, `gauge`, `panel`, `table`. The status line at the bottom shows a CPU sparkline and a memory meter, and flips between `-- SHELL --` and `-- PYTHON --` as you type.
+**Python at the prompt.** The shell is xonsh, so a line is either a command or Python, and the two mix: `$(...)` captures a command's output into a Python value, `@(...)` drops a Python value into a command, and `` pg`*.glsl` `` is a glob that returns `Path` objects. The status line at the bottom flips between `-- SHELL --` and `-- PYTHON --` as you type.
+
+![Python and shell commands mixed at the prompt: arithmetic, a glob into a variable, command capture, a bar chart](assets/python.gif)
+
+`ember.py` adds charts that draw on the character grid: `bars`, `spark`, `gauge`, `panel`, `table`. The status line also carries a CPU sparkline and a memory meter.
 
 ![Prompt, bar chart, sparkline and status line](assets/prompt.png)
 
 **Workspaces.** herdr is themed to match: coral active tab and focus border, panes open xonsh.
 
 ![herdr with a shell pane and btop side by side](assets/herdr.png)
+
+**Hidden window controls.** The title bar is a blank strip in the terminal's own colour. The buttons fade in only while the mouse is over it.
+
+![The title strip idle, and with the window buttons shown on hover](assets/chrome.png)
 
 **Tools.** eza, bat, fzf, delta, fastfetch and btop all use the same colours.
 

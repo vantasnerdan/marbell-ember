@@ -116,8 +116,6 @@ from ember import spark, bars, gauge, panel, table
 def _ember_toolbar():
     try:
         text = __xonsh__.shell.shell.prompter.default_buffer.text
-        if __xonsh__.history and text.strip() == __xonsh__.history[-1].cmd.strip():
-            text = ""  # first paint of a new prompt still holds the line just run
     except Exception:
         text = ""
     def _is_cmd(word):
@@ -132,6 +130,24 @@ $BOTTOM_TOOLBAR = _ember_toolbar
 # --- prompt, jumps, history search -----------------------------------------------------
 execx($(starship init xonsh))
 $RIGHT_PROMPT = ""
+
+# The status line has to repaint on every key (for the SHELL / PYTHON flag), which makes
+# xonsh re-evaluate $PROMPT on every key too. Starship is a subprocess, so run it once
+# per prompt and hand back the cached string after that.
+_starship_prompt = $PROMPT
+_prompt_cache = {}
+
+@events.on_pre_prompt
+def _ember_new_prompt(**kw):
+    _prompt_cache.clear()
+
+def _ember_prompt():
+    if "p" not in _prompt_cache:
+        _prompt_cache["p"] = _starship_prompt()
+    return _prompt_cache["p"]
+
+$PROMPT = _ember_prompt
+$UPDATE_PROMPT_ON_KEYPRESS = True
 execx($(zoxide init xonsh), "exec", __xonsh__.ctx, filename="zoxide")
 
 @events.on_ptk_create
