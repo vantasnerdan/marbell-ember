@@ -90,3 +90,60 @@ toolbarview > .content undershoot.top {
   box-shadow: none;
   background: none;
 }
+
+/* right-click and title-bar menus: the same glass as the terminal, not Adwaita grey */
+popover > contents,
+popover > arrow {
+  background: #0B1120;
+  color: #C9D3E3;
+  border: 1px solid #1E2A44;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+}
+
+popover.menu > contents {
+  padding: 5px;
+  border-radius: 8px;
+  font-family: "Space Mono";
+  font-size: 12px;
+}
+
+popover.menu modelbutton {
+  min-height: 26px;
+  padding: 0 10px;
+  border-radius: 4px;
+  color: #C9D3E3;
+}
+
+popover.menu modelbutton:hover,
+popover.menu modelbutton:selected,
+popover.menu modelbutton:focus-visible {
+  background: #1E2A44;
+  color: #F4F7FB;
+  outline: none;
+}
+
+popover.menu modelbutton:active,
+popover.menu modelbutton:checked {
+  background: #26365A;
+  color: #F4F7FB;
+}
+
+popover.menu modelbutton:disabled {
+  background: none;
+  color: #5B6B8C;
+}
+
+popover.menu modelbutton accelerator {
+  color: #5B6B8C;
+}
+
+popover.menu modelbutton arrow {
+  color: #F47853;
+  opacity: 1;
+}
+
+popover.menu separator {
+  min-height: 1px;
+  margin: 5px 4px;
+  background: #1E2A44;
+}
