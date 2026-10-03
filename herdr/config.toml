@@ -11,7 +11,7 @@ sidebar_bg = "reset"
 surface_dim = "#0A0F1D"
 surface0 = "#111829"
 surface1 = "#1E2A44"
-active_row_bg = "#1E2A44"
+active_row_bg = "#101A2E"
 selection_bg = "#26365A"
 overlay0 = "#5B6B8C"
 overlay1 = "#7C8BAA"
@@ -20,8 +20,8 @@ text = "#C9D3E3"
 accent = "#F47853"
 peach = "#FF9A7B"
 mauve = "#F47853"
-red = "#E5484D"
-yellow = "#F2B866"
+red = "#FF2E7E"
+yellow = "#FFB52E"
 green = "#4FD1C5"
 teal = "#4FD1C5"
 blue = "#6E9BF5"
@@ -40,7 +40,9 @@ tab_bar_right = [{ type = "text", text = "marbell" }, { type = "datetime", forma
 tab_bar_right_separator = " · "
 window_title = "{workspace} · {tab}"
 
-# Sidebar: no slab (the glass shows through), and rows in the Ember colours.
+# Sidebar: no slab (the glass shows through), rows in the Ember colours.
+# "working" and "blocked" use two signal colours that appear nowhere else in the theme;
+# Ghostty's ember-glass shader looks for exactly those colours and makes them pulse.
 [ui.sidebar.spaces]
 row_gap = 1
 rows = [
@@ -51,9 +53,12 @@ rows = [
 [ui.sidebar.agents]
 row_gap = 1
 rows = [
-  ["state_icon", { token = "agent", fg = "#F47853", bold = true }, { token = "state_text", fg = "#5B6B8C" }],
-  [{ token = "workspace", fg = "#C9D3E3" }, { token = "tab", fg = "#5B6B8C" }],
-  [{ token = "terminal_title_stripped", fg = "#5B6B8C" }],
+  ["state_icon", { token = "agent", fg = "#F47853", bold = true }, { token = "state_text", fg = "#5B6B8C", rules = [
+    { starts_with = "working", fg = "#FFB52E", bold = true },
+    { starts_with = "blocked", fg = "#FF2E7E", bold = true },
+    { starts_with = "done", fg = "#4FD1C5" },
+  ] }],
+  [{ token = "terminal_title_stripped", fg = "#7C8BAA" }],
 ]
 
 [[keys.command]]

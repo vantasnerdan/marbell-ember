@@ -8,7 +8,7 @@ It started as a console drawn for a film and was rebuilt as a real terminal: nav
 
 ## What is in it
 
-**Shaders.** Two GLSL passes run on the whole terminal. `ember-glass.glsl` gives coral text a phosphor glow (the accent is read from palette slot 5, so it follows the theme) and sweeps a line of light down the window when it takes focus. `ember-cursor.glsl` makes the cursor leave a thread from where it was to where it lands.
+**Shaders.** Two GLSL passes run on the whole terminal. `ember-glass.glsl` gives coral shapes a faint halo (the accent is read from palette slot 5, so it follows the theme), pulses the agent-state signal colours, and sweeps a line of light down the window when it takes focus. `ember-cursor.glsl` makes the cursor leave a thread from where it was to where it lands.
 
 ![The cursor leaving a coral thread as it jumps along the line, slowed down](assets/cursor.gif)
 
@@ -20,7 +20,9 @@ It started as a console drawn for a film and was rebuilt as a real terminal: nav
 
 ![Prompt, bar chart, sparkline and the live readout](assets/prompt.png)
 
-**Workspaces.** herdr is themed to match: coral active tab and focus border, panes open xonsh.
+**Workspaces.** herdr is themed to match: coral active tab and focus border, a transparent sidebar, panes open xonsh. Agent state is drawn in two signal colours that appear nowhere else in the theme, and the glass shader looks for exactly those colours: `working` breathes amber, `blocked` blinks pink-red. It is all config; herdr itself is untouched.
+
+![herdr sidebar: a working agent breathing amber and a blocked agent blinking](assets/sidebar.gif)
 
 ![herdr with a shell pane and btop side by side](assets/herdr.png)
 

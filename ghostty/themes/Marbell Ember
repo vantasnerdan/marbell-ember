@@ -24,3 +24,7 @@ palette = 12=#9DB8FF
 palette = 13=#FF9A7B
 palette = 14=#8FDDFA
 palette = 15=#F4F7FB
+# Signal colours (agent state in the herdr sidebar). The glass shader reads these two
+# slots and makes anything drawn in them pulse: 200 = working, 201 = blocked.
+palette = 200=#FFB52E
+palette = 201=#FF2E7E
