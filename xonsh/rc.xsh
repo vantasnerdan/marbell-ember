@@ -68,7 +68,6 @@ $XONSH_STYLE_OVERRIDES.update({
     "Token.PTK.CompletionMenu.Meta.Completion.Current": "bg:#1E2A44 #F4F7FB",
     "Token.PTK.Scrollbar.Background": "bg:#111829",
     "Token.PTK.Scrollbar.Button": "bg:#F47853",
-    "Token.PTK.BottomToolbar": "noreverse bg:#0A0F1D #5B6B8C",
     "Token.PTK.MatchingBracket.Cursor": "bold #F47853",
     "Token.PTK.MatchingBracket.Other": "bold #4FD1C5",
 })
@@ -113,34 +112,28 @@ sys.path.insert(0, str(_home / ".config/ember"))
 import ember
 from ember import spark, bars, gauge, panel, table
 
-def _ember_toolbar():
+def _ember_status():
     try:
-        text = __xonsh__.shell.shell.prompter.default_buffer.text
+        app = __xonsh__.shell.shell.prompter.app
+        if app.is_done:
+            return ""  # the line has been run: leave nothing behind in the scrollback
+        text = app.current_buffer.text
     except Exception:
         text = ""
     def _is_cmd(word):
         return word in aliases or bool(__xonsh__.commands_cache.locate_binary(word))
-    # The prompt carries its own callsign block. When it sits within a few rows of the
-    # status line, the status line goes compact so the two blocks never stack.
-    compact = True
     try:
-        app = __xonsh__.shell.shell.prompter.app
-        rows = app.output.get_size().rows
-        compact = app.renderer.rows_above_layout + 2 + text.count("\n") >= rows - 6
-    except Exception:
-        pass
-    try:
-        return ember.toolbar(text, _is_cmd, compact)
+        return ember.status(text, _is_cmd)
     except Exception:
         return ""
 
-$BOTTOM_TOOLBAR = _ember_toolbar
-
 # --- prompt, jumps, history search -----------------------------------------------------
 execx($(starship init xonsh))
-$RIGHT_PROMPT = ""
+# live readout (cpu, mem, SHELL / PYTHON flag) at the right end of the input line;
+# prompt_toolkit hides it when the typed text reaches it and once the line is run
+$RIGHT_PROMPT = _ember_status
 
-# The status line has to repaint on every key (for the SHELL / PYTHON flag), which makes
+# The readout has to repaint on every key (for the SHELL / PYTHON flag), which makes
 # xonsh re-evaluate $PROMPT on every key too. Starship is a subprocess, so run it once
 # per prompt and hand back the cached string after that.
 _starship_prompt = $PROMPT

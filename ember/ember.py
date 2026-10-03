@@ -7,6 +7,8 @@ Everything here prints on the character grid in the Ember palette:
     gauge(0.62, "SI")                      ━━━━━━━━━━ meter
     panel("max", "any text or object")     ╭─ max ───╮ box
     table(rows, headers)                   aligned grid
+
+`status()` feeds the live readout at the right end of the prompt.
 """
 import os
 import shutil
@@ -112,7 +114,7 @@ def table(rows, headers=None):
         print("  ".join(paint(c.ljust(w), CORAL if i == 0 else TEXT) for i, (c, w) in enumerate(zip(r, widths))))
 
 
-# --- live status line (xonsh $BOTTOM_TOOLBAR) ------------------------------------
+# --- live status (xonsh $RIGHT_PROMPT) --------------------------------------------
 
 _cache = {"cpu": (0, 0), "load": [], "mem": 0.0, "thread": None}
 
@@ -147,13 +149,9 @@ def _sample():
         _cache["thread"].start()
 
 
-def toolbar(buffer_text="", is_command=None, compact=False):
-    """Format string for $BOTTOM_TOOLBAR: callsign block, cpu sparkline, mem meter, mode flag.
-
-    compact=True drops the callsign blocks, for when the prompt (which has its own
-    callsign block) sits right above the status line."""
+def status(buffer_text="", is_command=None):
+    """Format string for xonsh's $RIGHT_PROMPT: cpu sparkline, mem meter, mode flag."""
     _sample()
-    call = os.environ.get("EMBER_CALLSIGN", "MARBELL")
     load = _cache["load"] or [0.0]
     cpu = "".join(_BLOCKS[min(7, int(v * 7.999))] for v in load).rjust(16, "▁")
     on = round(_cache["mem"] * 8)
@@ -164,14 +162,7 @@ def toolbar(buffer_text="", is_command=None, compact=False):
         mode, mc = "SHELL", TEAL
     else:
         mode, mc = "PYTHON", AMBER
-    bar = "#0A0F1D"
-    meters = (
-        f" {{{DIM}}}cpu {{{CORAL}}}{cpu} {{{DIM}}} mem {{{TEAL}}}{'━' * on}{{{PANEL}}}{'━' * (8 - on)}"
-        f"  {{{mc}}}-- {mode} --"
-    )
-    if compact:
-        return f"{{BACKGROUND_{bar}}}{{{DIM}}} xonsh {{{PANEL}}}│" + meters
     return (
-        f"{{BACKGROUND_{CORAL}}}{{BOLD_{INK}}} {call} {{BACKGROUND_{PANEL}}}{{{CORAL}}}\ue0b0"
-        f"{{BOLD_{BRIGHT}}} xonsh {{BACKGROUND_{bar}}}{{{PANEL}}}\ue0b0" + meters
+        f"{{{DIM}}}cpu {{{CORAL}}}{cpu} {{{DIM}}} mem {{{TEAL}}}{'━' * on}{{{PANEL}}}{'━' * (8 - on)}"
+        f"  {{{mc}}}-- {mode} --{{RESET}}"
     )
