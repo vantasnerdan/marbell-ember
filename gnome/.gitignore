@@ -1,0 +1,14 @@
+# Private snapshots and visual/session diagnostics.
+/backup/
+/audit/
+/PLAN.md
+/proposed/
+/shell/validation.json
+/icons/validation.json
+/wallpapers/validation.json
+/wallpapers/index.html
+/wallpapers/*-3840x2160.png
+/wallpapers/previews/
+/wallpapers/sources/
+# icons/nautilus-verified.json is required runtime compatibility data.
+__pycache__/

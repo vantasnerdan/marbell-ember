@@ -1,0 +1,9 @@
+{
+  "pixels_sha256": "04de9e50e5a4d24bf4876d8faff8e188b47e5dbdb7120cd9c354ce1b8d63e9d3",
+  "verified_on": "2026-10-04",
+  "yaru_version": "26.04.5.1ubuntu",
+  "nautilus_version": "50.2.2",
+  "method": "Nautilus 50.2.2 smallest list view inside a separate GNOME Shell 50.1 Wayland session, with a copy of the current GTK CSS. All 190 generated size/scale lookups passed; visually inspected an unscaled 16/24/32/48px strip on #070B16.",
+  "limits": "Symbolic sidebar icons inherit Yaru shapes and take their colour from GTK CSS. App brand icons are inherited. A changed source/pixel signature leaves Yaru-dark selected until reviewed.",
+  "revision": "Lighter slate fronts (#5B6B8C), coral upper flaps, bright emblems; 16px special folders borrow Yaru 24px emblems. Includes Home, Desktop, Documents, Downloads, Music, Pictures, Videos, Trash/full, and network."
+}

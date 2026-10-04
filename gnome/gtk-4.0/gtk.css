@@ -1,0 +1,199 @@
+/* Marbell Ember user override. GTK 4.22 / libadwaita 1.9.
+ * User CSS complements the dark scheme; it is not a universal app theme API.
+ * Keep both variables and named colors for apps using either syntax. */
+@define-color accent_bg_color #F47853;
+@define-color accent_fg_color #070B16;
+@define-color accent_color #F47853;
+@define-color window_bg_color #070B16;
+@define-color window_fg_color #C9D3E3;
+@define-color view_bg_color #070B16;
+@define-color view_fg_color #C9D3E3;
+@define-color headerbar_bg_color #0B1120;
+@define-color headerbar_fg_color #C9D3E3;
+@define-color headerbar_backdrop_color #070B16;
+@define-color sidebar_bg_color #0B1120;
+@define-color sidebar_fg_color #C9D3E3;
+@define-color sidebar_backdrop_color #070B16;
+@define-color card_bg_color #111829;
+@define-color card_fg_color #C9D3E3;
+@define-color dialog_bg_color #0B1120;
+@define-color dialog_fg_color #C9D3E3;
+@define-color popover_bg_color #0B1120;
+@define-color popover_fg_color #C9D3E3;
+@define-color borders #1E2A44;
+@define-color theme_bg_color #070B16;
+@define-color theme_fg_color #C9D3E3;
+@define-color theme_base_color #070B16;
+@define-color theme_text_color #C9D3E3;
+@define-color theme_selected_bg_color #26365A;
+@define-color theme_selected_fg_color #F4F7FB;
+@define-color success_color #4FD1C5;
+@define-color warning_color #F2B866;
+@define-color error_color #E5484D;
+@define-color link_color #6E9BF5;
+
+:root {
+  --yaru-accent-bg-color: #F47853;
+  --accent-bg-color: #F47853;
+  --accent-fg-color: #070B16;
+  --accent-color: #F47853;
+  --window-bg-color: #070B16;
+  --window-fg-color: #C9D3E3;
+  --view-bg-color: #070B16;
+  --view-fg-color: #C9D3E3;
+  --headerbar-bg-color: #0B1120;
+  --headerbar-fg-color: #C9D3E3;
+  --headerbar-backdrop-color: #070B16;
+  --headerbar-border-color: #1E2A44;
+  --sidebar-bg-color: #0B1120;
+  --sidebar-fg-color: #C9D3E3;
+  --sidebar-backdrop-color: #070B16;
+  --secondary-sidebar-bg-color: #111829;
+  --secondary-sidebar-fg-color: #C9D3E3;
+  --secondary-sidebar-backdrop-color: #0B1120;
+  --card-bg-color: #111829;
+  --card-fg-color: #C9D3E3;
+  --dialog-bg-color: #0B1120;
+  --dialog-fg-color: #C9D3E3;
+  --popover-bg-color: #0B1120;
+  --popover-fg-color: #C9D3E3;
+  --overview-bg-color: #070B16;
+  --overview-fg-color: #C9D3E3;
+  --thumbnail-bg-color: #111829;
+  --thumbnail-fg-color: #C9D3E3;
+  --active-toggle-bg-color: #26365A;
+  --active-toggle-fg-color: #F4F7FB;
+  --border-color: #1E2A44;
+  --destructive-bg-color: #E5484D;
+  --destructive-fg-color: #070B16;
+  --destructive-color: #FF6B6F;
+  --error-bg-color: #E5484D;
+  --error-fg-color: #070B16;
+  --error-color: #FF6B6F;
+  --warning-bg-color: #F2B866;
+  --warning-fg-color: #070B16;
+  --warning-color: #F2B866;
+  --success-bg-color: #4FD1C5;
+  --success-fg-color: #070B16;
+  --success-color: #4FD1C5;
+}
+
+/* Neutral large selections keep coral limited to focus and actions. */
+selection { background-color: #26365A; color: #F4F7FB; }
+
+/* Opaque navy for neutral controls that Adwaita otherwise derives from white. */
+button.text-button:not(.suggested-action):not(.destructive-action):not(.flat):not(:checked) {
+  background-color: #111829;
+}
+entry { background-color: #111829; }
+scale trough, scrollbar trough { background-color: #1E2A44; }
+
+/* Make each palette role explicit instead of deriving grey from opacity. */
+* { caret-color: #F47853; }
+button:focus-visible, entry:focus-visible, switch:focus-visible,
+checkbutton:focus-visible, scale:focus-visible { outline-color: #F47853; }
+entry:focus-within, textview:focus-within { outline: 1px solid #F47853; outline-offset: -1px; }
+headerbar, .titlebar {
+  background-color: #0B1120; color: #C9D3E3;
+  border-bottom: 1px solid #1E2A44;
+}
+headerbar:backdrop, .titlebar:backdrop { background-color: #070B16; }
+headerbar .title, .titlebar .title, windowtitle .title { color: #F4F7FB; }
+.dim-label, .subtitle, entry placeholder, text placeholder {
+  color: #5B6B8C; opacity: 1;
+}
+headerbar button.image-button:not(:hover):not(:active):not(:checked),
+windowcontrols:backdrop { color: #5B6B8C; }
+windowcontrols button.close:hover, windowcontrols button.close:hover > image {
+  background-color: #F47853; color: #070B16;
+}
+separator { background-color: #1E2A44; min-width: 1px; min-height: 1px; }
+.card, .boxed-list, frame { border: 1px solid #1E2A44; box-shadow: none; }
+button.suggested-action, switch:checked, check:checked, radio:checked {
+  background-color: #F47853; color: #070B16;
+}
+button.suggested-action:hover { background-color: #FF9A7B; color: #070B16; }
+scale highlight, progressbar progress { background-color: #F47853; }
+progressbar trough { background-color: #1E2A44; }
+notebook > header tab:checked, tabbar tab:selected {
+  border-bottom: 2px solid #F47853; background-color: #111829; color: #F4F7FB;
+  box-shadow: none;
+}
+row:selected, .view:selected { background-color: #26365A; color: #F4F7FB; }
+button:link, button:visited, label:link, label:visited, link { color: #6E9BF5; }
+.success { color: #4FD1C5; }
+.warning { color: #F2B866; }
+.error { color: #E5484D; }
+button.destructive-action { background-color: #E5484D; color: #070B16; }
+
+/* Places and files: keep large selections slate, with a clear coral marker.
+ * Nautilus also sets its own grey accent on file views; override it here. */
+.navigation-sidebar row, placessidebar row {
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+}
+.navigation-sidebar row image, placessidebar row image {
+  color: #4FD1C5; opacity: 1;
+}
+.navigation-sidebar row:hover, placessidebar row:hover {
+  background-color: #111829;
+}
+.navigation-sidebar row:selected, placessidebar row:selected {
+  background-color: #26365A; color: #F4F7FB;
+  border-left-color: #F47853;
+}
+.navigation-sidebar row:selected:dir(rtl), placessidebar row:selected:dir(rtl) {
+  border-left-color: transparent; border-right-color: #F47853;
+}
+.navigation-sidebar row:selected image, placessidebar row:selected image,
+.navigation-sidebar row:selected label, placessidebar row:selected label {
+  color: #F4F7FB; opacity: 1;
+}
+.navigation-sidebar separator, placessidebar separator {
+  background-color: #1E2A44; min-height: 1px;
+}
+.nautilus-list-view columnview > header {
+  background-color: #0B1120; border-bottom: 1px solid #1E2A44;
+}
+.nautilus-list-view columnview > header button,
+.nautilus-list-view columnview > header button label {
+  color: #F2B866; opacity: 1;
+}
+.nautilus-list-view columnview > header button:hover {
+  background-color: #111829; color: #F4F7FB;
+}
+.nautilus-list-view listview, .nautilus-grid-view gridview,
+.nautilus-network-view listview {
+  --accent-bg-color: #F47853;
+  --accent-color: #F47853;
+}
+.nautilus-list-view listview > row:hover,
+.nautilus-grid-view gridview > child:hover,
+.nautilus-network-view listview > row:hover {
+  background-color: #111829; outline: 1px solid #1E2A44; outline-offset: -1px;
+}
+.nautilus-list-view listview > row:selected,
+.nautilus-grid-view gridview > child:selected,
+.nautilus-network-view listview > row:selected {
+  background-color: #26365A; color: #F4F7FB;
+}
+.nautilus-list-view listview > row:focus-visible,
+.nautilus-grid-view gridview > child:focus-visible {
+  outline: 1px solid #F47853; outline-offset: -1px;
+}
+
+/* Navigation, headings and file facts expose the terminal's secondary palette
+ * even when no warning/success dialog is open. Coral still marks interaction. */
+.nautilus-pathbar {
+  background-color: #111829; border: 1px solid #1E2A44;
+}
+.nautilus-pathbar .current-dir image { color: #4FD1C5; }
+.nautilus-list-view .dim-label, .nautilus-grid-view .dim-label {
+  color: #6E9BF5; opacity: 1;
+}
+.nautilus-list-view row:selected .dim-label,
+.nautilus-grid-view child:selected .dim-label {
+  color: #C9D3E3; opacity: 1;
+}
+.nautilus-list-view button.star.starred,
+.nautilus-list-view button.star:hover { color: #F2B866; }

@@ -50,7 +50,9 @@ It started as a console drawn for a film and was rebuilt as a real terminal: nav
 
 ## Requirements
 
-Built and tested on Ubuntu 24.04, X11, GNOME, NVIDIA, in October 2026.
+Originally built on Ubuntu 24.04 with GNOME, X11 and NVIDIA. Also tested on
+Ubuntu 26.04.1 with GNOME Shell 50.1, Wayland, GTK 4.22.4, libadwaita 1.9.1
+and an NVIDIA RTX 3060 (driver 580.178.04), at 3440×1440/60 Hz. X11 is not required.
 
 | Tool | Version used |
 |---|---|
@@ -68,6 +70,21 @@ uv tool install 'xonsh[full]' --with xontrib-term-integrations
 
 The font is Space Mono; the installer downloads it if it is missing. Icons come from Ghostty's built-in Nerd Font fallback.
 
+On NVIDIA, `__GL_YIELD=USLEEP` lets the driver sleep while Ghostty waits in
+`glFinish()`, reducing measured main-thread CPU from **40.47% to 7.67%** of one
+core on the setup above, with all effects retained.
+See [NVIDIA's yield setting](https://download.nvidia.com/XFree86/Linux-x86_64/580.178.04/README/openglenvvariables.html)
+and [Ghostty 1.3.1's frame completion](https://github.com/ghostty-org/ghostty/blob/v1.3.1/src/renderer/opengl/Frame.zig).
+
+The installer sets this in a systemd user drop-in for
+`app-com.mitchellh.ghostty.service` and reloads unit definitions without restarting
+Ghostty. It takes effect on the service's next start. For shell launches, or
+packages without that unit, use:
+
+```bash
+env __GL_YIELD=USLEEP ghostty
+```
+
 ## Install
 
 ```bash
@@ -76,7 +93,10 @@ cd marbell-ember
 ./install.sh
 ```
 
-The installer copies configs into `~/.config`, keeps a numbered backup of every file it replaces, and lists any tools that are missing. It installs no packages and does not change your login shell.
+The installer copies configs and the Ghostty systemd user drop-in into `~/.config`
+(respecting `XDG_CONFIG_HOME`), keeps a numbered backup of every file it replaces,
+and lists any tools that are missing. It leaves the packaged launcher and unit
+alone, installs no packages and does not change your login shell.
 
 Ghostty starts xonsh directly, so nothing from `~/.bashrc` is inherited. Put your PATH entries and exports in `~/.config/xonsh/local.xsh`; the installer creates it from `xonsh/local.xsh.example`.
 
@@ -100,6 +120,28 @@ xonsh is not bash. Agents are unaffected: `$SHELL` stays `/bin/bash`, so Claude 
 
 Every optional tool is guarded. On a machine with only xonsh installed the same `rc.xsh` still loads: a native prompt in the Ember colours replaces Starship, `ls` is plain `ls`, and Ctrl-R is xonsh's built-in search.
 
+## Desktop
+
+The optional Ubuntu 26.04 desktop theme carries Ember into window bars, a named GTK3/GTK4 theme and libadwaita user CSS, GNOME Shell through User Themes, and folder icons. It also sets the wallpaper, dock, Space Mono fonts and GNOME Terminal/Ptyxis profiles, adds a Nerd Font fallback for Space Mono, and supplies a GTK override for the Brave snap. Teal navigation, amber headings and blue file details sit against navy; coral marks focus and selection.
+
+GTK/Shell theme bases and folder icons are generated from your installed Yaru at install time. Derived Ubuntu themes are not shipped. The repo supplies the builders, CSS overrides and five ultrawide wallpapers.
+
+![Silent Seam wallpaper](gnome/wallpapers/silent-seam-3440x1440.png)
+
+With the [desktop requirements](gnome/USAGE.md#requirements) installed, apply from the checkout:
+
+```bash
+./gnome/apply.sh
+```
+
+Restore the saved settings and files, including Shell and icons:
+
+```bash
+./gnome/revert.sh
+```
+
+Reopen applications to load their CSS. On first installation, User Themes and existing XWayland title bars take effect at the next login. The scripts do not restart the desktop, change the login screen or boot splash, or add blur or animation. See [desktop usage](gnome/USAGE.md) for dependencies, backups, browser setup and limits.
+
 ## Layout
 
 ```
@@ -110,6 +152,7 @@ starship.toml
 herdr/     config.toml
 fastfetch/ config.jsonc
 bat/ btop/ tool themes
+gnome/     desktop builders, CSS, wallpapers, profiles, apply/revert scripts
 ```
 
 ## Knobs

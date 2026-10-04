@@ -1,0 +1,87 @@
+{
+  "status": "Applied by apply.sh. Values are GVariant strings; profile lists are merged at runtime. ${WALLPAPER_URI} resolves under XDG_DATA_HOME.",
+  "settings": {
+    "org.gnome.desktop.interface": {
+      "color-scheme": "'prefer-dark'",
+      "accent-color": "'orange'",
+      "gtk-theme": "'Marbell-Ember'",
+      "cursor-theme": "'Yaru'",
+      "cursor-size": "24",
+      "font-name": "'Space Mono 10'",
+      "document-font-name": "'Space Mono 11'",
+      "monospace-font-name": "'Space Mono 11'"
+    },
+    "org.gnome.desktop.wm.preferences": {
+      "titlebar-font": "'Space Mono Bold 10'",
+      "titlebar-uses-system-font": "false",
+      "theme": "'Marbell-Ember'"
+    },
+    "org.gnome.desktop.background": {
+      "picture-uri": "'${WALLPAPER_URI}'",
+      "picture-uri-dark": "'${WALLPAPER_URI}'",
+      "picture-options": "'zoom'",
+      "primary-color": "'#070B16'",
+      "secondary-color": "'#070B16'",
+      "color-shading-type": "'solid'"
+    },
+    "org.gnome.shell.extensions.dash-to-dock": {
+      "apply-custom-theme": "false",
+      "custom-background-color": "true",
+      "background-color": "'#070B16'",
+      "transparency-mode": "'FIXED'",
+      "background-opacity": "1.0",
+      "custom-theme-customize-running-dots": "true",
+      "running-indicator-dominant-color": "false",
+      "running-indicator-style": "'DASHES'",
+      "custom-theme-running-dots-color": "'#F47853'",
+      "custom-theme-running-dots-border-color": "'#F47853'",
+      "custom-theme-running-dots-border-width": "0",
+      "unity-backlit-items": "false",
+      "apply-glossy-effect": "false"
+    },
+    "org.gnome.shell.extensions.tiling-assistant": {
+      "focus-hint-color": "'rgb(244,120,83)'"
+    },
+    "org.gnome.Terminal.Legacy.Settings": {
+      "theme-variant": "'dark'"
+    },
+    "org.gnome.Terminal.ProfilesList": {
+      "list": "['f4785307-0b16-4e2a-8440-5b6b8c000001']",
+      "default": "'f4785307-0b16-4e2a-8440-5b6b8c000001'"
+    },
+    "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:f4785307-0b16-4e2a-8440-5b6b8c000001/": {
+      "visible-name": "'Marbell Ember'",
+      "background-color": "'#070B16'",
+      "foreground-color": "'#C9D3E3'",
+      "use-theme-colors": "false",
+      "use-system-font": "false",
+      "font": "'Space Mono 11'",
+      "cursor-colors-set": "true",
+      "cursor-background-color": "'#F47853'",
+      "cursor-foreground-color": "'#070B16'",
+      "highlight-colors-set": "true",
+      "highlight-background-color": "'#26365A'",
+      "highlight-foreground-color": "'#F4F7FB'",
+      "palette": "['#111829', '#E5484D', '#4FD1C5', '#F2B866', '#6E9BF5', '#F47853', '#5CC8F0', '#C9D3E3', '#5B6B8C', '#FF6B6F', '#7CE8DD', '#FFD08A', '#9DB8FF', '#FF9A7B', '#8FDDFA', '#F4F7FB']",
+      "use-transparent-background": "false",
+      "use-theme-transparency": "false",
+      "background-transparency-percent": "0"
+    },
+    "org.gnome.Ptyxis": {
+      "interface-style": "'dark'",
+      "use-system-font": "true",
+      "profile-uuids": "['f4785307-0b16-4e2a-8440-5b6b8c000001']",
+      "default-profile-uuid": "'f4785307-0b16-4e2a-8440-5b6b8c000001'"
+    },
+    "org.gnome.Ptyxis.Profile:/org/gnome/Ptyxis/Profiles/f4785307-0b16-4e2a-8440-5b6b8c000001/": {
+      "label": "'Marbell Ember'",
+      "palette": "'marbell-ember'",
+      "opacity": "1.0"
+    },
+    "org.gnome.TextEditor": {
+      "style-variant": "'dark'",
+      "use-system-font": "true",
+      "recolor-window": "false"
+    }
+  }
+}

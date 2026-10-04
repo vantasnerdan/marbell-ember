@@ -22,6 +22,10 @@ background-image-opacity = 1
 background-opacity = 1
 
 # --- shaders: coral phosphor glow + focus sweep, then the cursor thread
+# On NVIDIA, launch Ghostty with __GL_YIELD=USLEEP to reduce CPU spent waiting
+# for each GL frame. The installer adds a systemd user drop-in; shell launches
+# need the environment setting explicitly (see README).
+# Keep animation enabled for the beacons, focus sweep and cursor thread.
 custom-shader = shaders/ember-glass.glsl
 custom-shader = shaders/ember-cursor.glsl
 custom-shader-animation = true

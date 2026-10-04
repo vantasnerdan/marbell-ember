@@ -1,0 +1,127 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "background": "#F47853",
+          "foreground": "#070B16",
+          "options": {
+            "alpine": "",
+            "arch": "",
+            "centos": "",
+            "debian": "",
+            "elementary": "",
+            "fedora": "",
+            "gentoo": "",
+            "linux": "",
+            "macos": "",
+            "manjaro": "",
+            "mint": "",
+            "opensuse": "",
+            "raspbian": "",
+            "ubuntu": "",
+            "windows": ""
+          },
+          "style": "diamond",
+          "leading_diamond": "╭─",
+          "template": " {{ .Icon }} ",
+          "type": "os"
+        },
+        {
+          "background": "#111829",
+          "foreground": "#C9D3E3",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "template": " {{ .UserName }} ",
+          "type": "session"
+        },
+        {
+          "background": "#1E2A44",
+          "foreground": "#F4F7FB",
+          "options": {
+            "style": "agnoster_short",
+            "max_depth": 3,
+            "folder_icon": "…",
+            "folder_separator_icon": " <transparent></> "
+          },
+          "style": "powerline",
+          "powerline_symbol": "",
+          "template": " {{ .Path }} ",
+          "type": "path"
+        },
+        {
+          "background": "#0B1120",
+          "foreground": "#4FD1C5",
+          "options": {
+            "branch_template": "{{ trunc 25 .Branch }}",
+            "fetch_status": true,
+            "branch_icon": " ",
+            "branch_identical_icon": "",
+            "branch_gone_icon": ""
+          },
+          "style": "diamond",
+          "leading_diamond": "<transparent,background></>",
+          "template": " {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} <transparent></> <#F2B866> {{ .Working.String }}</>{{ end }}{{ if .Staging.Changed }} <transparent></> <#4FD1C5> {{ .Staging.String }}</>{{ end }}{{ if gt .StashCount 0 }} <transparent></> <#5B6B8C> {{ .StashCount }}</>{{ end }} ",
+          "trailing_diamond": "",
+          "type": "git",
+          "foreground_templates": [
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#E5484D{{ end }}",
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#F2B866{{ end }}",
+            "{{ if gt .Behind 0 }}#F2B866{{ end }}",
+            "{{ if gt .Ahead 0 }}#6E9BF5{{ end }}"
+          ]
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "segments": [
+        {
+          "background": "#111829",
+          "foreground": "#C9D3E3",
+          "options": {
+            "style": "austin",
+            "always_enabled": true
+          },
+          "invert_powerline": true,
+          "style": "powerline",
+          "powerline_symbol": "",
+          "template": "  {{ .FormattedMs }} ",
+          "type": "executiontime"
+        },
+        {
+          "background": "#0B1120",
+          "foreground": "#5B6B8C",
+          "options": {
+            "time_format": "15:04:05"
+          },
+          "invert_powerline": true,
+          "style": "diamond",
+          "template": "  {{ .CurrentDate | date .Format }} ",
+          "trailing_diamond": "",
+          "type": "time"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#F47853",
+          "style": "plain",
+          "template": "╰─ {{ if .Root }}#{{else}}${{end}}",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "final_space": true,
+  "version": 4
+}

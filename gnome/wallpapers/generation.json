@@ -1,0 +1,41 @@
+{
+  "mode": "built-in image_gen",
+  "generated_date": "2026-10-04",
+  "concepts": [
+    {
+      "id": "seam",
+      "name": "silent-seam",
+      "prompt": "Use case: stylized-concept. Asset type: finished desktop wallpaper, landscape 3840x2160 16:9, full bleed, no mockup.\nConcept 1 / Silent Seam: a vast almost-black navy glass instrument surface, with one extremely fine horizontal seam running across the lower-middle of the composition. On the right half of that seam is one tiny coral ember and a short luminous coral filament; the seam elsewhere is unlit deep slate blue. A faint, slightly offset pair of large glass planes adds subtle depth, with sparse sharp etched structural edges. No literal spaceship, no room, no scenery, no dashboard widgets.\nPalette is very tightly constrained: dominant background near #070B16 covering more than 90 percent; non-emissive structure #1E2A44; only the faintest edge hints in dim #5B6B8C. Exactly one local coral accent #F47853, with restrained subtle halo. Coral occupies less than 0.3 percent. CORAL IS THE ONLY THING THAT GLOWS. No glowing blue, no white highlights, no orange wash.\nTop quarter and left quarter must be calm nearly uniform dark navy for a desktop top bar and icons. Compose principal detail within the central 65 percent of image height so a 3440x1440 ultrawide center crop also works. Fine organic film grain/dither in dark gradients to avoid color banding, extremely low contrast, smooth premium glass, not noisy or dirty. Mood: quiet spacecraft console at night, minimal and precise.\nAbsolutely no text, letters, numerals, logos, watermarks, interface controls, starfields, lens flares or other accent colors. Output one image, not a collage.",
+      "output": "silent-seam-3440x1440.png"
+    },
+    {
+      "id": "orbit",
+      "name": "dormant-orbit",
+      "prompt": "Use case: stylized-concept. Asset type: finished landscape desktop wallpaper, 3840x2160 16:9, full bleed.\nConcept 2 / Dormant Orbit: one large off-center circular instrument, an abstract orbital gimbal engraved into almost-black navy glass. Its ellipse/concentric broken arcs occupy the middle-right, not an interface with readouts. Matte hairline arcs and a few precise radial incisions in #1E2A44, edges barely hinted in dim #5B6B8C. One short coral #F47853 arc segment, only 10 degrees of one ring, glows softly on the lower-right quadrant. All other arcs are unlit. Rings should feel etched, physical and delicate, not a bright HUD, not a tunnel. No planet or stars.\nMore than 90% of pixels close to near-black navy #070B16. Coral is the ONLY luminous element and occupies under 0.3%. Absolutely no cyan, teal, purple or white illumination, no blue glow, no orange wash. Top 25% and left 25% are particularly empty and calm for desktop bar and icons. Keep all meaningful content in central 65% of height for ultrawide center cropping. Fine subtly dithered dark gradients with natural micrograin to prevent banding. Spare, measured, quiet spacecraft instrument atmosphere, cinematic yet extremely dark.\nNo text, numerals, symbols, lettering, logos, watermark, UI controls, busy tick marks or grids. One wallpaper image, not a collage.",
+      "output": "dormant-orbit-3440x1440.png"
+    },
+    {
+      "id": "fold",
+      "name": "folded-glass",
+      "prompt": "Use case: stylized-concept. Asset type: finished desktop wallpaper 3840x2160 landscape 16:9.\nConcept 3 / Folded Glass: an abstract macro view of two very large overlapping smoked navy glass facets, a precise low angular wedge in the lower-right half. Huge architectural planes, not many shards. One tiny coral #F47853 filament follows just a short inner crease, like an instrument's standby light buried between layers. The rest of the crease is dark. More sculptural and asymmetric than a flat horizontal seam; restrained hard geometry with a broad almost-empty top and left.\nStrict near-black palette: background #070B16 covering over 90%; non-glowing edges and matte reflections #1E2A44, only very rare dim blue #5B6B8C. The single coral thread is the ONLY glow, extremely small and localized under 0.3% area. No blue glow, white glare, cyan, purple, orange areas or refracted rainbows. Glass can be sensed through its layered edges, not transparency over a scene.\nCalm spacecraft instrument material study, premium restrained cinematic image with microscopic film grain/dither, exceptionally smooth dark gradients with no banding. Subject core in central 65 percent of height so 3440x1440 center crop works. Desktop icons/top bar need very quiet dark negative space. No text, letters, numbers, logos, watermarks, stars, UI, machinery, literal spacecraft or lens flare. One image, no collage.",
+      "output": "folded-glass-3440x1440.png"
+    },
+    {
+      "id": "contour",
+      "name": "tidal-contours",
+      "prompt": "Use case: stylized-concept. Asset type: finished desktop wallpaper 3840x2160 landscape 16:9.\nConcept 4 / Tidal Contours: a sparse, organic field of maybe twelve very thin etched contour curves in dark navy glass, like an abstract instrument measuring a silent wave. Curves flow from the lower-right toward the middle with wide spacing, smoothly bending around a small recessed oval basin. This is a flat material engraving, not a mountain landscape, not water, not luminous waves. One short part of one contour near the basin becomes a single delicate coral #F47853 thread with a tiny restrained halo. No other luminous point.\nBackground over 90% close to #070B16. Etched linework muted #1E2A44 with occasional very dim #5B6B8C edge. Coral less than 0.3 percent and the ONLY thing that glows. No blue or cyan emission, no violet, white highlights or orange wash. Overall extremely dark and calm. Left 35 percent and top 25 percent mostly empty near-black navy, calm enough for desktop icons and top bar. Focal contour basin within central 65 percent of height, suitable for 3440x1440 ultrawide center crop as well.\nSubtle micrograin/dither to avoid banding in near-black gradients, premium smooth glass. Quiet spacecraft sensing instrument rendered as minimal abstract art. No text, numbers, letters, logos, watermark, starfield, interface controls, grid, collage or photographic scenery. One image.",
+      "output": "tidal-contours-3440x1440.png"
+    },
+    {
+      "id": "lock",
+      "name": "silent-seam-lock",
+      "prompt": "Use case: lighting-weather. Edit target: the supplied Silent Seam desktop wallpaper. Produce a darker, simpler lock-screen variant, same landscape aspect ratio. Preserve the near-black navy #070B16 base and the single horizontal seam position, with its tiny coral #F47853 point on the right. Remove all the large diagonal glass planes and almost all other structural detail; leave only a barely visible short horizontal etched hairline and one very tiny dim coral ember. Reduce the glow spread and the length of the coral thread by about 70 percent; coral alone may glow, no bright white center. Keep the whole center and top extremely quiet for a lock screen clock; no clock is drawn. Background should feel darker and more uniform than the original without crushing to pure black, retaining very subtle micrograin to avoid dark-gradient banding. No blue illumination. Output only the wallpaper, no text, numbers, logos, watermarks or interface. Preserve clean premium finish.",
+      "output": "silent-seam-lock-3440x1440.png"
+    }
+  ],
+  "published_size": [
+    3440,
+    1440
+  ],
+  "processing": "Generated source artwork was cropped and upscaled for ultrawide use; published wallpapers are not native-resolution renders."
+}

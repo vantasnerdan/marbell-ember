@@ -1,0 +1,200 @@
+/* Ember roles. Colours only: retain upstream geometry and existing focus-ring geometry.
+ * No added shadows, opacity, animation, border widths or effects. */
+stage {
+  font-family: "Space Mono";
+  color: #C9D3E3;
+  success-color: #4FD1C5;
+  warning-color: #F2B866;
+  error-color: #E5484D;
+}
+#panel, #panel:overview, #panel.unlock-screen, #panel.login-screen { background-color: #070B16 !important; }
+.popup-menu-content, .quick-settings, .candidate-popup-content, .modal-dialog,
+.osd-window, .switcher-list, .workspace-switcher, .screenshot-ui-panel,
+.search-section-content, .dash-background {
+  background-color: #0B1120;
+  border-color: #1E2A44;
+  color: #C9D3E3;
+}
+.quick-toggle-menu, .message, .events-button, .world-clocks-button, .weather-button,
+.popup-sub-menu { background-color: #111829; border-color: #1E2A44; }
+.message:hover, .message:active, .events-button:hover,
+.world-clocks-button:hover, .weather-button:hover { background-color: #26365A; }
+.message-list, .dash-label, .window-caption, .screenshot-ui-tooltip { border-color: #1E2A44; }
+.popup-separator-menu-item .popup-separator-menu-item-separator,
+.popup-sub-menu .popup-separator-menu-item .popup-separator-menu-item-separator,
+.switcher-list .separator, .quick-toggle-has-menu .quick-toggle-separator,
+#dash .dash-separator { background-color: #1E2A44; }
+
+/* Typography: distinguish emphasis, body, secondary information and links. */
+.dialog-title, .message-dialog-content .message-dialog-title,
+.conflicting-session-dialog-content .conflicting-session-dialog-title,
+.datemenu-today-button .date-label, .datemenu-today-button .day-label,
+.calendar .calendar-month-header .calendar-month-label,
+.message .message-box .message-content .message-title,
+.message-notification-group .message-group-header .message-group-title,
+.quick-toggle-menu .header .title, .window-caption { color: #F4F7FB; }
+.device-subtitle, .quick-toggle .quick-toggle-subtitle,
+.quick-toggle-menu .header .subtitle, .background-app-item .subtitle,
+.run-dialog .run-dialog-description, .prompt-dialog .prompt-dialog-null-label,
+.dialog-list .dialog-list-box .dialog-list-item .dialog-list-item-description,
+.message .message-header, .message .message-header .message-header-content .event-time,
+.world-clocks-button .world-clocks-grid .world-clocks-timezone,
+.events-button .events-box .events-list .event-box .event-time,
+.calendar .calendar-day-heading, .calendar .calendar-week-number,
+.calendar .calendar-day.calendar-other-month,
+.calendar .calendar-day.calendar-other-month.calendar-weekend,
+.hint-text, StEntry StLabel.hint-text, .search-entry .search-entry-icon,
+.quick-toggle .quick-toggle-icon, .popup-menu-item:insensitive { color: #5B6B8C; }
+.shell-link, .shell-link:hover, .web-login-url-label,
+.prompt-dialog .prompt-dialog-info-label { color: #6E9BF5; }
+.url-highlighter { link-color: #6E9BF5; }
+
+/* Entries/rows use the navy selection role, never a coral wash. */
+StEntry { color: #C9D3E3; caret-color: #F47853; selection-background-color: #26365A; selected-color: #F4F7FB; }
+.search-entry { background-color: #070B16; border-color: #1E2A44; }
+StEntry:focus, .search-entry:focus { color: #F4F7FB; border-color: #F47853; }
+.popup-menu-item:hover, .popup-menu-item:selected, .popup-menu-item:checked,
+.popup-menu-item:active, .popup-sub-menu .popup-menu-item:hover,
+.popup-sub-menu .popup-menu-item:selected, .popup-sub-menu .popup-menu-item:checked,
+.list-search-result:selected, .list-search-result:highlighted,
+.switcher-list .item-box:selected, .switcher-list .item-box:highlighted,
+.switcher-list .item-box:checked {
+  background-color: #26365A !important;
+  color: #F4F7FB;
+}
+.popup-menu-ornament, .switcher-list .item-box:selected,
+.switcher-list .item-box:highlighted { color: #F47853; }
+
+/* Checked quick tiles: selection surface + coral icon/title; small switches fill coral. */
+.quick-settings .quick-toggle, .quick-toggle-has-menu .quick-toggle-menu-button {
+  background-color: #111829;
+  color: #C9D3E3;
+}
+.quick-settings .quick-toggle:hover,
+.quick-toggle-has-menu .quick-toggle-menu-button:hover { background-color: #1E2A44; }
+.quick-settings .quick-toggle:checked,
+.quick-toggle-has-menu .quick-toggle-menu-button:checked {
+  background-color: #26365A !important;
+  color: #F47853 !important;
+}
+.quick-settings .quick-toggle:checked .quick-toggle-title,
+.quick-settings .quick-toggle:checked .quick-toggle-icon { color: #F47853; }
+.quick-settings .quick-toggle:checked:hover .quick-toggle-title,
+.quick-settings .quick-toggle:checked:hover .quick-toggle-icon,
+.quick-toggle-has-menu .quick-toggle-menu-button:checked:hover { color: #FF9A7B !important; }
+.quick-settings .quick-toggle:checked .quick-toggle-subtitle { color: #C9D3E3; }
+.quick-toggle-has-menu:checked .quick-toggle-separator { background-color: #5B6B8C; }
+.toggle-switch { background: #1E2A44; color: #5B6B8C; }
+.toggle-switch:hover { background: #26365A; }
+.toggle-switch .handle { background: #5B6B8C; }
+.toggle-switch:checked { background: #F47853; color: #070B16; }
+.toggle-switch:checked:hover { background: #FF9A7B; color: #070B16; }
+.toggle-switch:checked .handle { background: #070B16; }
+.check-box StIcon { border-color: #1E2A44; }
+.check-box:hover StIcon { border-color: #FF9A7B; }
+.check-box:checked StIcon { background-color: #F47853; border-color: #F47853; color: #070B16; }
+.check-box:checked:hover StIcon { background-color: #FF9A7B; color: #070B16; }
+.slider, .osd-window .level {
+  color: #F4F7FB;
+  -barlevel-background-color: #1E2A44;
+  -barlevel-active-background-color: #F47853;
+  -barlevel-overdrive-color: #E5484D;
+}
+.slider:hover { color: #FF9A7B; }
+.quick-settings .icon-button { color: #5B6B8C; }
+.quick-settings .icon-button:hover { color: #FF9A7B; }
+.quick-settings .icon-button:checked { color: #F47853; }
+
+/* A default modal button uses :default, whereas ordinary Shell buttons use .default. */
+.button.default, .button.suggested-action, .modal-dialog .modal-dialog-button-box .modal-dialog-button:default {
+  background-color: #F47853 !important;
+  color: #070B16 !important;
+}
+.button.default:hover, .button.suggested-action:hover,
+.modal-dialog .modal-dialog-button-box .modal-dialog-button:default:hover {
+  background-color: #FF9A7B !important;
+  color: #070B16 !important;
+}
+.button.default:insensitive, .button.suggested-action:insensitive,
+.modal-dialog .modal-dialog-button-box .modal-dialog-button:default:insensitive {
+  background-color: #1E2A44 !important;
+  color: #5B6B8C !important;
+}
+.calendar .calendar-day:selected, .calendar .calendar-day:checked {
+  background-color: #26365A;
+  color: #F4F7FB;
+}
+.calendar .calendar-day.calendar-today {
+  background-color: #F47853;
+  color: #070B16 !important;
+}
+.calendar .calendar-day.calendar-today:hover { background-color: #FF9A7B; }
+.calendar .calendar-day.calendar-today.calendar-day-with-events { background-image: url("assets/calendar-today-on-coral.svg") !important; }
+
+/* State is small and local: existing panel fills remain navy; glyphs carry coral. */
+#panel .panel-button:hover, #panel .panel-button:focus { color: #FF9A7B; }
+#panel .panel-button:checked, #panel .panel-button:active { color: #F47853; }
+#panel .panel-button#panelActivities .workspace-dot { background-color: #F47853 !important; }
+#panel .panel-button.screen-sharing-indicator,
+#panel .panel-button.screen-sharing-indicator:hover,
+#panel .panel-button.screen-sharing-indicator:checked,
+#panel .panel-button.screen-recording-indicator,
+#panel .panel-button.screen-recording-indicator:hover,
+#panel .panel-button.screen-recording-indicator:checked { color: #070B16; }
+.window-close:hover, .screenshot-ui-close-button:hover,
+.message .message-header .message-close-button:hover {
+  background-color: #F47853;
+  color: #070B16;
+  border-color: #F47853;
+}
+.window-close:active, .screenshot-ui-close-button:active { background-color: #FF9A7B; color: #070B16; }
+
+/* Semantic colours are reserved for actual information and status. */
+.success { color: #4FD1C5; }
+.warning, .caps-lock-warning-label, .login-dialog .login-dialog-message-warning,
+.unlock-dialog .login-dialog-message-warning,
+.conflicting-session-dialog-content .conflicting-session-dialog-desc-warning,
+.end-session-dialog .end-session-dialog-battery-warning {
+  color: #F2B866;
+  background-color: #111829;
+}
+.error, .prompt-dialog .prompt-dialog-error-label {
+  color: #E5484D;
+  background-color: #111829;
+}
+.button.destructive-action { background-color: #E5484D; color: #070B16; }
+#dashtodockContainer .notification-badge, .overview-tile .notification-badge,
+.grid-search-result .notification-badge, .icon-grid .notification-badge {
+  background-color: #F47853;
+  border-color: #F47853;
+  color: #070B16;
+}
+
+/* Keep hints dim across upstream important text-colour rules. */
+.hint-text { color: #5B6B8C !important; }
+#overview .progress-bar, .apps-scroll-view .progress-bar,
+#dashtodockContainer.dashtodock .progress-bar {
+  -progress-bar-track-background: #1E2A44;
+  -progress-bar-track-border: #1E2A44;
+  -progress-bar-background: #F47853;
+  -progress-bar-border: #F47853;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button { color: #5B6B8C; }
+.quick-settings .quick-toggle:insensitive,
+.quick-toggle-has-menu .quick-toggle-menu-button:insensitive {
+  background-color: #111829 !important;
+  color: #5B6B8C !important;
+}
+.quick-settings .quick-toggle:insensitive .quick-toggle-title,
+.quick-settings .quick-toggle:insensitive .quick-toggle-icon,
+.quick-settings .quick-toggle:insensitive .quick-toggle-subtitle { color: #5B6B8C; }
+
+/* Yaru marks these important in its Ubuntu overrides. */
+.calendar .calendar-month-header .calendar-month-label { color: #F4F7FB !important; }
+#panel .panel-button:hover .system-status-icon,
+#panel .panel-button:focus .system-status-icon { color: #FF9A7B !important; }
+#panel .panel-button:checked .system-status-icon,
+#panel .panel-button:active .system-status-icon { color: #F47853 !important; }
+#panel .panel-button.screen-sharing-indicator .system-status-icon,
+#panel .panel-button.screen-recording-indicator .system-status-icon { color: #070B16 !important; }

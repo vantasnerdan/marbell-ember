@@ -1,0 +1,73 @@
+/* Marbell Ember for Brave Snap's GTK 4.12 colour sampler.
+ * This confined runtime cannot see the host's user theme directory and does
+ * not support GTK 4.22 CSS variables. Browser appearance must use GTK.
+ * These rules affect native browser chrome, not website styles. */
+@define-color theme_bg_color #0B1120;
+@define-color theme_fg_color #C9D3E3;
+@define-color theme_base_color #070B16;
+@define-color theme_text_color #C9D3E3;
+@define-color theme_selected_bg_color #26365A;
+@define-color theme_selected_fg_color #F4F7FB;
+@define-color theme_unfocused_bg_color #070B16;
+@define-color theme_unfocused_fg_color #C9D3E3;
+@define-color theme_unfocused_base_color #070B16;
+@define-color theme_unfocused_text_color #C9D3E3;
+@define-color theme_unfocused_selected_bg_color #1E2A44;
+@define-color theme_unfocused_selected_fg_color #C9D3E3;
+@define-color accent_bg_color #F47853;
+@define-color accent_fg_color #070B16;
+@define-color accent_color #F47853;
+@define-color window_bg_color #070B16;
+@define-color window_fg_color #C9D3E3;
+@define-color headerbar_bg_color #0B1120;
+@define-color headerbar_fg_color #C9D3E3;
+@define-color headerbar_backdrop_color #070B16;
+@define-color borders #1E2A44;
+@define-color success_color #4FD1C5;
+@define-color warning_color #F2B866;
+@define-color error_color #E5484D;
+@define-color link_color #6E9BF5;
+@define-color insensitive_fg_color #5B6B8C;
+window.background, .background, .view {
+  background-color: #070B16; color: #C9D3E3;
+}
+headerbar, .titlebar, toolbar, menubar, .menubar {
+  background-image: none; background-color: #0B1120;
+  color: #C9D3E3; border-color: #1E2A44;
+}
+headerbar:backdrop, .titlebar:backdrop, window.background:backdrop {
+  background-color: #070B16; color: #C9D3E3;
+}
+button, entry, notebook > header {
+  background-image: none; background-color: #111829;
+  color: #C9D3E3; border-color: #1E2A44;
+}
+button:hover { background-color: #1E2A44; color: #F4F7FB; }
+button:checked, selection, .view:selected {
+  background-color: #26365A; color: #F4F7FB;
+}
+button.suggested-action, check:checked, radio:checked {
+  background-color: #F47853; color: #070B16;
+}
+popover, popover > contents, menu {
+  background-color: #0B1120; color: #C9D3E3;
+}
+* { caret-color: #F47853; }
+button:focus-visible, entry:focus-visible, switch:focus-visible,
+checkbutton:focus-visible, scale:focus-visible { outline-color: #F47853; }
+entry:focus-within { outline: 1px solid #F47853; outline-offset: -1px; }
+headerbar, .titlebar { border-bottom: 1px solid #1E2A44; }
+headerbar .title, .titlebar .title { color: #F4F7FB; }
+.dim-label, .subtitle, entry placeholder { color: #5B6B8C; opacity: 1; }
+button:link, button:visited, label:link, label:visited { color: #6E9BF5; }
+notebook > header tab:checked {
+  border-bottom: 2px solid #F47853; color: #F4F7FB;
+}
+separator, scale trough, progressbar trough { background-color: #1E2A44; }
+scale highlight, progressbar progress { background-color: #F47853; }
+windowcontrols button.close:hover, windowcontrols button.close:hover > image {
+  background-color: #F47853; color: #070B16;
+}
+.success { color: #4FD1C5; }
+.warning { color: #F2B866; }
+.error { color: #E5484D; }
