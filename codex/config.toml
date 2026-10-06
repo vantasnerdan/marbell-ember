@@ -1,0 +1,20 @@
+# Marbell Ember settings to merge into $CODEX_HOME/config.toml (~/.codex/config.toml).
+# Preserve all other keys and tables; this is a fragment, not a replacement config.
+# Install themes/marbell-ember.tmTheme at $CODEX_HOME/themes/marbell-ember.tmTheme.
+# Verified with Codex CLI 0.160.1. Supported keys are documented in its schema:
+# https://github.com/openai/codex/blob/rust-v0.160.1/codex-rs/core/config.schema.json
+# https://learn.chatgpt.com/docs/cli-customization
+# The theme follows the bundled Ada scope map; custom themes cannot inherit a base.
+# Footer: text directory, teal branch, dim model/reasoning, amber remaining context.
+# Codex softens RGB footer colours and may adjust text contrast on shaded surfaces.
+# Selection fills, some accents, prompt shading, separators and spinners remain
+# native: this version exposes no user colour overrides for those surfaces.
+# The status line accepts built-in items, not a custom shell/ANSI status-line command.
+# Existing panes cache their theme: reselect Marbell Ember with /theme or restart.
+
+[tui]
+theme = "marbell-ember"
+status_line = ["current-dir", "git-branch", "model-with-reasoning", "context-remaining"]
+status_line_use_colors = true
+# Keep decorative brightening off; Ghostty supplies the coral-only glow.
+effects = { shimmer = false, starfield = false, welcome = false, effort = false }

@@ -57,6 +57,62 @@ if command -v claude >/dev/null 2>&1 || [ -d "$claude" ]; then
   fi
 fi
 
+# Codex (optional): the syntax theme, then the [tui] keys from codex/config.toml. `theme` is
+# set; the other keys are added only where missing, and nothing outside [tui] is touched.
+codex="${CODEX_HOME:-$HOME/.codex}"
+if command -v codex >/dev/null 2>&1 || [ -d "$codex" ]; then
+  put "$here/codex/themes/marbell-ember.tmTheme" "$codex/themes/marbell-ember.tmTheme"
+  tmp="$(mktemp)"
+  if python3 - "$here/codex/config.toml" "$codex/config.toml" "$tmp" <<'PY'
+import re, sys, tomllib
+frag, dest, out = sys.argv[1:]
+want = tomllib.load(open(frag, "rb"))["tui"]
+def fmt(v):
+    if isinstance(v, bool): return "true" if v else "false"
+    if isinstance(v, str): return '"%s"' % v
+    if isinstance(v, list): return "[" + ", ".join(fmt(x) for x in v) + "]"
+    return "{ " + ", ".join("%s = %s" % (k, fmt(x)) for k, x in v.items()) + " }"
+try: lines = open(dest).read().splitlines()
+except FileNotFoundError: lines = []
+tomllib.loads("\n".join(lines))  # refuse to edit a config that does not parse
+start = next((i for i, l in enumerate(lines) if l.strip() == "[tui]"), None)
+if start is None:
+    lines += ([""] if lines else []) + ["[tui]"]
+    start = len(lines) - 1
+end = next((i for i in range(start + 1, len(lines)) if re.match(r"\s*\[", lines[i])), len(lines))
+have = {m.group(1): i for i in range(start + 1, end) if (m := re.match(r"\s*([A-Za-z0-9_-]+)\s*=", lines[i]))}
+add = []
+for k, v in want.items():
+    if k not in have: add.append("%s = %s" % (k, fmt(v)))
+    elif k == "theme": lines[have[k]] = "theme = %s" % fmt(v)
+lines[start + 1:start + 1] = add
+text = "\n".join(lines) + "\n"
+assert all(tomllib.loads(text)["tui"].get(k) is not None for k in want)
+open(out, "w").write(text)
+PY
+  then
+    cmp -s "$tmp" "$codex/config.toml" || put "$tmp" "$codex/config.toml"
+  else
+    echo "codex: could not update $codex/config.toml; add the [tui] keys from codex/config.toml by hand."
+  fi
+  rm -f "$tmp"
+fi
+
+# omp (optional): the theme, selected through omp's own config command.
+if command -v omp >/dev/null 2>&1; then
+  ompcfg="$(omp config path)"
+  [ -f "$ompcfg" ] || ompcfg="$ompcfg/config.yml"
+  put "$here/omp/themes/marbell-ember.json" "$(dirname "$ompcfg")/themes/marbell-ember.json"
+  if [ "$(omp config get theme.dark 2>/dev/null)" != marbell-ember ] || [ "$(omp config get theme.light 2>/dev/null)" != marbell-ember ] \
+     || [ "$(omp config get statusLine.sessionAccent 2>/dev/null)" != false ]; then
+    [ -f "$ompcfg" ] && cp --backup=numbered "$ompcfg" "$ompcfg.ember-backup"
+    omp config set theme.dark marbell-ember >/dev/null
+    omp config set theme.light marbell-ember >/dev/null
+    omp config set statusLine.sessionAccent false >/dev/null
+    echo "  $ompcfg"
+  fi
+fi
+
 if [ ! -f "$cfg/btop/btop.conf" ]; then
   printf 'color_theme = "ember"\ntheme_background = False\ntruecolor = True\nrounded_corners = True\ngraph_symbol = "braille"\n' > "$cfg/btop/btop.conf"
 else

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Marbell Ember, adapted from Codex CLI 0.160.1's bundled Ada scope map.
+     Source: https://github.com/openai/codex/blob/rust-v0.160.1/codex-rs/tui/assets/themes/ada.tmTheme
+     Palette: ghostty/themes/Marbell Ember in this repository.
+     Custom tmTheme files are standalone; Codex provides no base/inheritance key.
+     Coral is the UI accent. Teal/red/amber carry semantic syntax/diff colours.
+     The native footer reads string (directory), entity.name.function (branch),
+     entity.name.type (model), and constant.numeric (context), then softens RGB.
+     More specific string/type scopes retain syntax colours in code blocks. -->
+<plist version="1.0">
+<dict>
+  <key>name</key><string>Marbell Ember</string>
+  <key>settings</key>
+  <array>
+    <dict>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#C9D3E3</string>
+        <key>background</key><string>#070B16</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>codex.accent</string>
+      <key>settings</key><dict><key>foreground</key><string>#F47853</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>comment, punctuation.definition.comment</string>
+      <key>settings</key><dict><key>foreground</key><string>#687A9D</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>string</string>
+      <key>settings</key><dict><key>foreground</key><string>#C9D3E3</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>string.quoted, string.unquoted, punctuation.definition.string</string>
+      <key>settings</key><dict><key>foreground</key><string>#F2B866</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>keyword, storage</string>
+      <key>settings</key><dict><key>foreground</key><string>#F47853</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>support.type, support.class, support.variable, entity.name.type.class, entity.name.type.enum, entity.name.type.struct, entity.name.type.trait, entity.other.inherited-class</string>
+      <key>settings</key><dict><key>foreground</key><string>#6E9BF5</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>entity.name.type</string>
+      <key>settings</key><dict><key>foreground</key><string>#687A9D</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>entity.name.function, support.function</string>
+      <key>settings</key><dict><key>foreground</key><string>#4FD1C5</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>constant, constant.numeric</string>
+      <key>settings</key><dict><key>foreground</key><string>#F2B866</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>variable, variable.parameter</string>
+      <key>settings</key><dict><key>foreground</key><string>#C9D3E3</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>punctuation, keyword.operator</string>
+      <key>settings</key><dict><key>foreground</key><string>#687A9D</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>entity.name.tag, entity.other.attribute-name</string>
+      <key>settings</key><dict><key>foreground</key><string>#F47853</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.heading, entity.name.section, markup.bold</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#F4F7FB</string>
+        <key>fontStyle</key><string>bold</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.italic</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#C9D3E3</string>
+        <key>fontStyle</key><string>italic</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.raw, markup.underline.link, string.other.link</string>
+      <key>settings</key><dict><key>foreground</key><string>#F47853</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.quote, meta.diff.header</string>
+      <key>settings</key><dict><key>foreground</key><string>#687A9D</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.inserted</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#4FD1C5</string>
+        <key>background</key><string>#1E2A44</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.deleted</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#E5484D</string>
+        <key>background</key><string>#1E2A44</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.changed</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#F2B866</string>
+        <key>background</key><string>#1E2A44</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>invalid</string>
+      <key>settings</key><dict><key>foreground</key><string>#E5484D</string></dict>
+    </dict>
+  </array>
+</dict>
+</plist>

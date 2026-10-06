@@ -1,0 +1,12 @@
+# Verified with omp 18.6.1; see its bundled theme.md and settings.md.
+# Install themes/marbell-ember.json at ~/.omp/agent/themes/marbell-ember.json.
+# This version requires a full colour map; documented base/override inheritance
+# and terminal-canvas colour keys are not available.
+# Merge these theme-only settings into ~/.omp/agent/config.yml; do not replace it.
+# Both appearance slots deliberately keep Marbell Ember selected.
+theme:
+  dark: marbell-ember
+  light: marbell-ember
+# Keep session-specific colours from replacing the coral editor/status-line accent.
+statusLine:
+  sessionAccent: false

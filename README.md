@@ -30,6 +30,8 @@ The readout stays quiet: a CPU sparkline joins it above 70% load and a memory me
 
 **Claude Code.** A custom theme recolours all of Claude Code's interface in the palette, and its status line repeats the prompt: callsign block, directory, branch, then the model and how full the context is. It is a theme file, a script and two settings; Claude Code itself is untouched.
 
+**Codex and omp.** Both get an Ember theme through their own theme folders. Codex's covers syntax highlighting, diffs and the footer colours it derives from them; its composer shading and spinners are fixed by Codex and stay as they are. omp's covers its whole interface: borders, messages, tool output, syntax and status line.
+
 **Hidden window controls.** The title bar is a blank strip in the terminal's own colour. The buttons fade in only while the mouse is over it.
 
 ![The title strip idle, and with the window buttons shown on hover](assets/chrome.png)
@@ -65,6 +67,8 @@ and an NVIDIA RTX 3060 (driver 580.178.04), at 3440×1440/60 Hz. X11 is not requ
 | [Starship](https://starship.rs) | 1.26 |
 | [herdr](https://herdr.dev) | 0.9.3 (optional) |
 | [Claude Code](https://claude.com/claude-code) | 2.1.291 (optional; the status line needs `jq`) |
+| [Codex CLI](https://github.com/openai/codex) | 0.160.1 (optional) |
+| omp | 18.6.1 (optional) |
 | fastfetch, eza, bat, btop, fzf, zoxide, delta, ripgrep | current releases |
 
 xonsh in its own environment:
@@ -109,6 +113,16 @@ If Claude Code is installed, the installer also copies the theme and status line
 is left as it was, and the previous file is kept as a numbered backup. This step needs
 `jq`: without it the files are still copied and the installer asks you to install `jq`
 and run it again.
+
+If Codex is installed, the theme goes into `~/.codex/themes` (or `CODEX_HOME`) and the
+`[tui]` keys in `codex/config.toml` are merged into its `config.toml`: `theme` is set,
+the others are added only where missing, and nothing outside `[tui]` is touched. If omp
+is installed, the theme goes into its `themes` folder and is selected with
+`omp config set`. Both keep a backup of the config they change. Restart either agent,
+or pick the theme again with `/theme`, to see it.
+
+omp has no theme inheritance, so its theme is a complete colour map: an omp release
+that adds a required colour may need the theme refreshed.
 
 Ghostty starts xonsh directly, so nothing from `~/.bashrc` is inherited. Put your PATH entries and exports in `~/.config/xonsh/local.xsh`; the installer creates it from `xonsh/local.xsh.example`.
 
@@ -163,6 +177,8 @@ xonsh/     rc.xsh, local.xsh.example
 starship.toml
 herdr/     config.toml
 claude/    themes/marbell-ember.json, statusline-ember.sh
+codex/     themes/marbell-ember.tmTheme, config.toml (the [tui] keys to merge)
+omp/       themes/marbell-ember.json, config.yml (the keys the installer sets)
 fastfetch/ config.jsonc
 bat/ btop/ tool themes
 gnome/     desktop builders, CSS, wallpapers, profiles, apply/revert scripts
