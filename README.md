@@ -28,6 +28,8 @@ The readout stays quiet: a CPU sparkline joins it above 70% load and a memory me
 
 ![herdr with a shell pane and btop side by side](assets/herdr.png)
 
+**Claude Code.** A custom theme recolours all of Claude Code's interface in the palette, and its status line repeats the prompt: callsign block, directory, branch, then the model and how full the context is. It is a theme file, a script and two settings; Claude Code itself is untouched.
+
 **Hidden window controls.** The title bar is a blank strip in the terminal's own colour. The buttons fade in only while the mouse is over it.
 
 ![The title strip idle, and with the window buttons shown on hover](assets/chrome.png)
@@ -62,6 +64,7 @@ and an NVIDIA RTX 3060 (driver 580.178.04), at 3440×1440/60 Hz. X11 is not requ
 | [xonsh](https://xon.sh) | 0.24.2, with `xontrib-term-integrations` |
 | [Starship](https://starship.rs) | 1.26 |
 | [herdr](https://herdr.dev) | 0.9.3 (optional) |
+| [Claude Code](https://claude.com/claude-code) | 2.1.291 (optional; the status line needs `jq`) |
 | fastfetch, eza, bat, btop, fzf, zoxide, delta, ripgrep | current releases |
 
 xonsh in its own environment:
@@ -99,6 +102,13 @@ The installer copies configs and the Ghostty systemd user drop-in into `~/.confi
 (respecting `XDG_CONFIG_HOME`), keeps a numbered backup of every file it replaces,
 and lists any tools that are missing. It leaves the packaged launcher and unit
 alone, installs no packages and does not change your login shell.
+
+If Claude Code is installed, the installer also copies the theme and status line into
+`~/.claude` (or `CLAUDE_CONFIG_DIR`) and sets `theme` and `statusLine` in its
+`settings.json`. Those two keys replace whatever was set before; every other setting
+is left as it was, and the previous file is kept as a numbered backup. This step needs
+`jq`: without it the files are still copied and the installer asks you to install `jq`
+and run it again.
 
 Ghostty starts xonsh directly, so nothing from `~/.bashrc` is inherited. Put your PATH entries and exports in `~/.config/xonsh/local.xsh`; the installer creates it from `xonsh/local.xsh.example`.
 
@@ -152,6 +162,7 @@ ember/     ember.py (charts, inline images, live readout), plate.png, make_plate
 xonsh/     rc.xsh, local.xsh.example
 starship.toml
 herdr/     config.toml
+claude/    themes/marbell-ember.json, statusline-ember.sh
 fastfetch/ config.jsonc
 bat/ btop/ tool themes
 gnome/     desktop builders, CSS, wallpapers, profiles, apply/revert scripts

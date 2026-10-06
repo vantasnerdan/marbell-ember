@@ -39,6 +39,24 @@ put "$here/bat/config"                    "$cfg/bat/config"
 put "$here/btop/ember.theme"              "$cfg/btop/themes/ember.theme"
 sed -i "s|__HOME__|$HOME|g" "$cfg/ghostty/config.ghostty" "$cfg/herdr/config.toml"
 
+# Claude Code (optional): the theme and status line, then the two settings that select them.
+claude="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+if command -v claude >/dev/null 2>&1 || [ -d "$claude" ]; then
+  put "$here/claude/themes/marbell-ember.json" "$claude/themes/marbell-ember.json"
+  put "$here/claude/statusline-ember.sh"       "$claude/statusline-ember.sh"
+  if command -v jq >/dev/null 2>&1; then
+    [ -f "$claude/settings.json" ] || echo '{}' > "$claude/settings.json"
+    tmp="$(mktemp)"
+    jq --arg cmd "bash '$claude/statusline-ember.sh'" \
+       '.theme = "custom:marbell-ember" | .statusLine = {type: "command", command: $cmd, padding: 0}' \
+       "$claude/settings.json" > "$tmp"
+    cmp -s "$tmp" "$claude/settings.json" || put "$tmp" "$claude/settings.json"
+    rm -f "$tmp"
+  else
+    echo "claude: jq is missing (the status line needs it too); install it and run this again."
+  fi
+fi
+
 if [ ! -f "$cfg/btop/btop.conf" ]; then
   printf 'color_theme = "ember"\ntheme_background = False\ntruecolor = True\nrounded_corners = True\ngraph_symbol = "braille"\n' > "$cfg/btop/btop.conf"
 else
