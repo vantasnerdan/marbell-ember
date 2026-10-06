@@ -8,7 +8,7 @@ It started as a console drawn for a film and was rebuilt as a real terminal: nav
 
 ## What is in it
 
-**Shaders.** Two GLSL passes run on the whole terminal. `ember-glass.glsl` gives coral shapes a faint halo (the accent is read from palette slot 5, so it follows the theme), pulses the agent-state signal colours, and sweeps a line of light down the window when it takes focus. `ember-cursor.glsl` makes the cursor leave a thread from where it was to where it lands.
+**Shader.** One GLSL pass, `ember-glass.glsl`, runs on the whole terminal. It gives coral shapes a faint halo (the accent is read from palette slot 5, so it follows the theme) and pulses the agent-state signal colours. A window that is not focused cools like banked embers, and a line of light sweeps down it as it warms back up on focus. The cursor does not blink: a halo breathes around it, and it leaves a thread from where it was to where it lands.
 
 ![The cursor leaving a coral thread as it jumps along the line, slowed down](assets/cursor.gif)
 
@@ -16,13 +16,15 @@ It started as a console drawn for a film and was rebuilt as a real terminal: nav
 
 ![Python and shell commands mixed at the prompt: arithmetic, a glob into a variable, command capture, a bar chart](assets/python.gif)
 
-`ember.py` adds charts that draw on the character grid: `bars`, `spark`, `gauge`, `panel`, `table`. The same readout carries a CPU sparkline and a memory meter, and clears itself once a line is run.
+`ember.py` adds charts that draw on the character grid: `bars`, `spark`, `plot` (a braille line chart, 2×4 dots per cell), `gauge`, `panel`, `table`. `show(fig)` draws a matplotlib figure, a PIL image or a PNG inline through the kitty graphics protocol, and `ember.mpl()` puts matplotlib in the palette first.
+
+The readout stays quiet: a CPU sparkline joins it above 70% load and a memory meter above 80%. Once a line is run the readout clears and the prompt bar collapses to a bare `❯` (red after a failure), so the scrollback is commands and their output.
 
 ![Prompt, bar chart, sparkline and the live readout](assets/prompt.png)
 
-**Workspaces.** herdr is themed to match: coral active tab and focus border, a transparent sidebar, panes open xonsh. Agent state is drawn in two signal colours that appear nowhere else in the theme, and the glass shader looks for exactly those colours: `working` breathes amber, `blocked` blinks pink-red. It is all config; herdr itself is untouched.
+**Workspaces.** herdr is themed to match: coral active tab and focus border, a transparent sidebar, panes open xonsh. Agent state is drawn in two signal colours that appear nowhere else in the theme, and the glass shader looks for exactly those colours: `working` breathes amber on a slow cycle, `blocked` gives two soft pink-red beats and rests. It is all config; herdr itself is untouched.
 
-![herdr sidebar: a working agent breathing amber and a blocked agent blinking](assets/sidebar.gif)
+![herdr sidebar: a working agent breathing amber and a blocked agent pulsing](assets/sidebar.gif)
 
 ![herdr with a shell pane and btop side by side](assets/herdr.png)
 
@@ -40,7 +42,7 @@ It started as a console drawn for a film and was rebuilt as a real terminal: nav
 |---|---|---|
 | glass | `#070B16` | background |
 | line | `#1E2A44` | borders, rules, inactive meter |
-| dim | `#5B6B8C` | labels, comments |
+| dim | `#687A9D` | labels, comments (4.5:1 on the glass) |
 | text | `#C9D3E3` | body |
 | bright | `#F4F7FB` | bold, titles |
 | coral | `#F47853` | prompt, cursor, focus (ANSI magenta slot) |
@@ -145,8 +147,8 @@ Reopen applications to load their CSS. On first installation, User Themes and ex
 ## Layout
 
 ```
-ghostty/   config.ghostty, ember.css (hover-only title bar), themes/Marbell Ember, shaders/
-ember/     ember.py (charts + live readout), plate.png, make_plate.py, logo.txt, delta.gitconfig
+ghostty/   config.ghostty, ember.css (hover-only title bar), themes/Marbell Ember, shaders/ember-glass.glsl
+ember/     ember.py (charts, inline images, live readout), plate.png, make_plate.py, logo.txt, delta.gitconfig
 xonsh/     rc.xsh, local.xsh.example
 starship.toml
 herdr/     config.toml
@@ -158,7 +160,11 @@ gnome/     desktop builders, CSS, wallpapers, profiles, apply/revert scripts
 ## Knobs
 
 - The word in the prompt block: `$EMBER_CALLSIGN` (default `MARBELL`).
-- Shader strength: the constants at the top of each `.glsl` file.
+- Shader strength and pace: the constants at the top of `ember-glass.glsl`. `TAPS` is the halo's sample count (smoother and costlier as it rises), `BANK` is how far an unfocused window cools (`0.0` for none), and the `*_PERIOD` values set how slowly the beacons and the cursor breathe.
+- The full prompt bar on every line: `$EMBER_TRANSIENT = "0"` in `local.xsh`.
+- CPU and memory always in the readout: `$EMBER_CPU_HOT = "0"` and `$EMBER_MEM_HOT = "0"` in `local.xsh` (the defaults are `0.70` and `0.80`).
+- The boot card opens with the first window of a login session; `boot` shows it again.
+- A command that ran for 10 s or more while the window was not focused raises a notification when it ends (`notify-on-command-finish` in `config.ghostty`).
 - A different background plate: `python3 ember/make_plate.py plate.png <seed>` (needs numpy and Pillow).
 - The title bar is an invisible strip at the top (`ghostty/ember.css`). Hover it and the window buttons fade in; drag it to move, double-click to maximise, drag the edges to resize. `ctrl+shift+d` removes it entirely.
 - `ctrl+r` searches history and `ctrl+t` picks files, both through fzf.
@@ -169,4 +175,7 @@ gnome/     desktop builders, CSS, wallpapers, profiles, apply/revert scripts
 - The terminal is opaque on purpose. A see-through terminal shows whatever is behind it on a screen share. GNOME has no compositor blur, so the "glass" is a baked plate.
 - The prompt shows no user or host name, and the boot card shows no hostname or IP.
 - btop's release binaries have no GPU support; build it from source for the GPU panel.
-- Starship has no transient prompt for xonsh.
+- Starship has no transient prompt for xonsh, so `rc.xsh` does it: the prompt function returns a bare `❯` on prompt_toolkit's last repaint of a line.
+- The lens falloff toward the corners is baked into the plate, so it darkens the glass and not the text.
+- Images from `show()` need a terminal that speaks the kitty graphics protocol, directly: a multiplexer in between may not pass them on.
+- The optional desktop theme under `gnome/` still uses the earlier dim, `#5B6B8C`.

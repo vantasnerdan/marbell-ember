@@ -21,13 +21,13 @@ background-image-position = center
 background-image-opacity = 1
 background-opacity = 1
 
-# --- shaders: coral phosphor glow + focus sweep, then the cursor thread
+# --- shader: one pass for the coral phosphor glow, agent beacons, banked embers when the
+#     window is not focused, the focus sweep and the cursor thread
 # On NVIDIA, launch Ghostty with __GL_YIELD=USLEEP to reduce CPU spent waiting
 # for each GL frame. The installer adds a systemd user drop-in; shell launches
 # need the environment setting explicitly (see README).
-# Keep animation enabled for the beacons, focus sweep and cursor thread.
+# Keep animation enabled for the beacons, focus sweep, cursor thread and cursor breath.
 custom-shader = shaders/ember-glass.glsl
-custom-shader = shaders/ember-cursor.glsl
 custom-shader-animation = true
 
 # --- window: the title bar is an invisible strip until the mouse is over it (ember.css).
@@ -47,9 +47,9 @@ scrollbar = never
 gtk-single-instance = false
 confirm-close-surface = false
 
-# --- cursor
+# --- cursor: steady; the shader breathes a halo around it in place of a blink
 cursor-style = block
-cursor-style-blink = true
+cursor-style-blink = false
 mouse-hide-while-typing = true
 
 # --- splits (native ones, outside herdr)
@@ -61,6 +61,11 @@ split-divider-color = #1E2A44
 command = __HOME__/.local/bin/xonsh
 shell-integration = none
 bell-features = no-system,no-audio,attention,title,border
+# A command that ran for 10 s or more while you were looking elsewhere says when it is done
+# (needs the OSC 133 marks that rc.xsh loads through term_integration).
+notify-on-command-finish = unfocused
+notify-on-command-finish-action = bell,notify
+notify-on-command-finish-after = 10s
 
 # --- keys
 keybind = ctrl+shift+d=toggle_window_decorations

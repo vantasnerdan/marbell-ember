@@ -13,4 +13,7 @@ for _p in reversed([
         $PATH.insert(0, str(_p))
 
 # $EMBER_CALLSIGN = "MARBELL"   # the word in the prompt and status-line block
+# $EMBER_TRANSIENT = "0"         # keep the full prompt bar on every line
+# $EMBER_CPU_HOT = "0"           # cpu always in the readout (default: above 0.70)
+# $EMBER_MEM_HOT = "0"           # mem always in the readout (default: above 0.80)
 # $EDITOR = "nvim"

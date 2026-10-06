@@ -7,7 +7,7 @@ headerbar {
   min-height: 22px;
   padding: 0 6px;
   background: #070B16;
-  color: #5B6B8C;
+  color: #687A9D;
   border: none;
   box-shadow: none;
 }
@@ -32,7 +32,7 @@ headerbar windowtitle .title {
   font-family: "Space Mono";
   font-size: 11px;
   font-weight: normal;
-  color: #5B6B8C;
+  color: #687A9D;
 }
 
 headerbar button,
@@ -43,7 +43,7 @@ headerbar menubutton > button {
   margin: 1px 1px;
   border-radius: 4px;
   background: none;
-  color: #5B6B8C;
+  color: #687A9D;
   box-shadow: none;
 }
 
@@ -66,7 +66,7 @@ headerbar windowcontrols button.close:hover {
 /* tabs, when there is more than one */
 tabbar, tabbar tabbox {
   background: #070B16;
-  color: #5B6B8C;
+  color: #687A9D;
   box-shadow: none;
   border: none;
 }
@@ -130,11 +130,11 @@ popover.menu modelbutton:checked {
 
 popover.menu modelbutton:disabled {
   background: none;
-  color: #5B6B8C;
+  color: #687A9D;
 }
 
 popover.menu modelbutton accelerator {
-  color: #5B6B8C;
+  color: #687A9D;
 }
 
 popover.menu modelbutton arrow {

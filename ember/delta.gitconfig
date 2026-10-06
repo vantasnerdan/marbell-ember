@@ -9,7 +9,7 @@
 	line-numbers = true
 	file-style = bold "#F4F7FB"
 	file-decoration-style = "#1E2A44" ul
-	hunk-header-style = "#5B6B8C"
+	hunk-header-style = "#687A9D"
 	hunk-header-decoration-style = "#1E2A44" box
 	line-numbers-minus-style = "#E5484D"
 	line-numbers-plus-style = "#4FD1C5"

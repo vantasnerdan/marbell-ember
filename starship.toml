@@ -18,7 +18,7 @@ continuation_prompt = "[│ ](fg:panel)"
 [palettes.ember]
 ink = "#070B16"
 panel = "#1E2A44"
-dim = "#5B6B8C"
+dim = "#687A9D"
 text = "#C9D3E3"
 bright = "#F4F7FB"
 coral = "#F47853"

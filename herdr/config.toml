@@ -13,7 +13,7 @@ surface0 = "#111829"
 surface1 = "#1E2A44"
 active_row_bg = "#101A2E"
 selection_bg = "#26365A"
-overlay0 = "#5B6B8C"
+overlay0 = "#687A9D"
 overlay1 = "#7C8BAA"
 subtext0 = "#9AA8C2"
 text = "#C9D3E3"
@@ -53,7 +53,7 @@ rows = [
 [ui.sidebar.agents]
 row_gap = 1
 rows = [
-  ["state_icon", { token = "agent", fg = "#F47853", bold = true }, { token = "state_text", fg = "#5B6B8C", rules = [
+  ["state_icon", { token = "agent", fg = "#F47853", bold = true }, { token = "state_text", fg = "#687A9D", rules = [
     { starts_with = "working", fg = "#FFB52E", bold = true },
     { starts_with = "blocked", fg = "#FF2E7E", bold = true },
     { starts_with = "done", fg = "#4FD1C5" },

@@ -28,6 +28,11 @@ img = np.asarray(im).astype(np.float32) / 255.0
 # vignette + fine silver grain (dithers the gradients so they survive video compression)
 v = 1.0 - 0.38 * (((xx / W - .5) * 1.25) ** 2 + ((yy / H - .5) * 1.5) ** 2)
 img *= np.clip(v, 0, 1)[..., None]
+# lens falloff toward the corners, in linear light. It lives here rather than in the shader
+# so that it darkens the glass and leaves the text at full contrast everywhere.
+lens = 1.0 - 0.44 * ((xx / W - .5) ** 2 + (yy / H - .5) ** 2)
+lin = np.where(img <= 0.04045, img / 12.92, ((np.clip(img, 0, 1) + 0.055) / 1.055) ** 2.4) * lens[..., None]
+img = np.where(lin <= 0.0031308, lin * 12.92, 1.055 * np.clip(lin, 1e-9, 1) ** (1 / 2.4) - 0.055)
 img += rng.normal(0, 0.006, (H, W, 1)).astype(np.float32)
 Image.fromarray((np.clip(img, 0, 1) * 255).astype(np.uint8)).save(out, optimize=True)
 print(out)
