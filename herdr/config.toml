@@ -61,6 +61,10 @@ rows = [
   [{ token = "terminal_title_stripped", fg = "#7C8BAA" }],
 ]
 
+# Agent notifications from background tabs, drawn in herdr's own chrome so they stay in the palette.
+[ui.toast]
+delivery = "herdr"
+
 [[keys.command]]
 key = "prefix+alt+b"
 type = "popup"
